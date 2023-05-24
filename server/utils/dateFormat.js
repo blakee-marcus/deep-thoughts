@@ -1,4 +1,4 @@
-const addDateSuffix = date => {
+const addDateSuffix = (date) => {
   let dateStr = date.toString();
 
   // get last char of date string
@@ -22,7 +22,21 @@ module.exports = (
   timestamp,
   { monthLength = 'short', dateSuffix = true } = {}
 ) => {
-  // create month object
+  const now = new Date();
+  const dateObj = new Date(timestamp);
+  const diffMs = now - dateObj;
+  const diffSeconds = Math.round(diffMs / 1000);
+  const diffMinutes = Math.round(diffSeconds / 60);
+  const diffHours = Math.round(diffMinutes / 60);
+
+  if (diffSeconds < 60) {
+    return `${diffSeconds}s`;
+  } else if (diffMinutes < 60) {
+    return `${diffMinutes}m`;
+  } else if (diffHours < 24) {
+    return `${diffHours}h`;
+  }
+
   const months = {
     0: monthLength === 'short' ? 'Jan' : 'January',
     1: monthLength === 'short' ? 'Feb' : 'February',
@@ -35,10 +49,9 @@ module.exports = (
     8: monthLength === 'short' ? 'Sep' : 'September',
     9: monthLength === 'short' ? 'Oct' : 'October',
     10: monthLength === 'short' ? 'Nov' : 'November',
-    11: monthLength === 'short' ? 'Dec' : 'December'
+    11: monthLength === 'short' ? 'Dec' : 'December',
   };
 
-  const dateObj = new Date(timestamp);
   const formattedMonth = months[dateObj.getMonth()];
 
   const dayOfMonth = dateSuffix
@@ -61,7 +74,8 @@ module.exports = (
   // set `am` or `pm`
   const periodOfDay = dateObj.getHours() >= 12 ? 'pm' : 'am';
 
-  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
+  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year}`;
 
   return formattedTimeStamp;
 };
+

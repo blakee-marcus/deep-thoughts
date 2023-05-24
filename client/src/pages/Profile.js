@@ -48,36 +48,34 @@ const Profile = () => {
     };
 
     return (
-        <div>
-            <div className='flex-row mb-3'>
-                <h2 className='bg-dark text-secondary p-3 display-inline-block'>
-                    Viewing {userParam ? `${user.username}'s` : "your"} profile.
-                </h2>
-
-                {userParam && (
-                    <button className='btn ml-auto' onClick={handleClick}>
-                        Add Friend
-                    </button>
-                )}
+        <div className="w-100">
+            <div className='flex-column mb-0 pl-3'>
+                <h3 className='bg-dark-transparent text-light mb-0 pb-0 display-inline-block'>
+                    {user.username}
+                </h3>
+                <p className="text-tertiary">
+                    {user.thoughts.length} thoughts
+                </p>
             </div>
-
-            <div className='flex-row justify-space-between mb-3'>
+            <div className="flex-column mb-0 pl-3 border-bottom">
+                <h4 className="text-light">@{user.username}</h4>
+                <p><span className="text-light">{user.friendCount}</span> following</p>
+            </div>
+            <div className='flex-column justify-space-between'>
                 <div className='col-12 mb-3 col-lg-8'>
                     <ThoughtList
                         thoughts={user.thoughts}
-                        title={`${user.username}'s thoughts...`}
                     />
                 </div>
 
-                <div className='col-12 col-lg-3 mb-3'>
+                {/* <div className='col-12 col-lg-3 mb-3'>
                     <FriendList
                         username={user.username}
                         friendCount={user.friendCount}
                         friends={user.friends}
                     />
-                </div>
+                </div> */}
             </div>
-            <div className="mb-3">{!userParam && <ThoughtForm />}</div>
         </div>
     );
 };
