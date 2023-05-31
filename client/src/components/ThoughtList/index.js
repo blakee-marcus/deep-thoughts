@@ -5,7 +5,6 @@ const ThoughtList = ({ thoughts }) => {
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }
-
   return (
     <div className='border-right'>
       {thoughts &&

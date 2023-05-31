@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 
 const ReactionList = ({ reactions }) => {
   return (
-    <div className={`border-right w-100 ${reactions.length === 0 && 'border-top'}`}>
+    <div
+      className={`border-right w-100 ${reactions.length === 0 && 'border-top'}`}
+    >
       {reactions &&
         reactions.map((reaction) => (
           <div key={reaction._id} className='card mb-0 mt-2'>
