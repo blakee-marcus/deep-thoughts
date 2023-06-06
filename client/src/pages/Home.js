@@ -14,7 +14,7 @@ const Home = () => {
   const { data: userData } = useQuery(QUERY_ME_BASIC);
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
-
+    console.log(userData)
   return (
     <div className='flex-row justify-space-between overflow-scroll max-100-vh'>
       {loggedIn && (
@@ -27,11 +27,11 @@ const Home = () => {
         {loading ? <div>Loading...</div> : <ThoughtList thoughts={thoughts} />}
         {loggedIn && userData ? (
           <div className='col-12 col-lg-3 mb-3'>
-            <FriendList
+            {/* <FriendList
               username={userData.me.username}
               friendCount={userData.me.friendCount}
               friends={userData.me.friends}
-            />
+            /> */}
           </div>
         ) : null}
       </div>

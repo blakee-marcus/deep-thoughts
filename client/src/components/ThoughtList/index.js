@@ -5,6 +5,7 @@ const ThoughtList = ({ thoughts }) => {
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }
+
   return (
     <div className='border-right'>
       {thoughts &&
@@ -12,11 +13,11 @@ const ThoughtList = ({ thoughts }) => {
           <div key={thought._id} className='card mb-0 mt-2'>
             <p className='mb-0'>
               <Link
-                to={`/profile/${thought.username}`}
+                to={`/profile/${thought.author[0].username}`}
                 style={{ fontWeight: 700 }}
                 className='text-light ml-3'
               >
-                @{thought.username}
+                {thought.author[0].name} <span className='text-tertiary fw-light'>@{thought.author[0].username}</span>
               </Link>{' '}
               • <span className='text-tertiary'>{thought.createdAt}</span>
             </p>

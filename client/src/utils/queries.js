@@ -6,7 +6,11 @@ export const QUERY_THOUGHTS = gql`
       _id
       thoughtText
       createdAt
-      username
+      author {
+        _id
+        username
+        name
+      }
       reactionCount
       reactions {
         _id
@@ -24,7 +28,11 @@ export const QUERY_THOUGHT = gql`
       _id
       thoughtText
       createdAt
-      username
+      author {
+        _id
+        username
+        name
+      }
       reactionCount
       reactions {
         _id
@@ -49,7 +57,11 @@ export const QUERY_USER = gql`
       }
       thoughts {
         _id
-        username
+        author {
+          _id
+          username
+          name
+        }
         thoughtText
         createdAt
         reactionCount
@@ -67,7 +79,11 @@ export const QUERY_ME = gql`
       friendCount
       thoughts {
         _id
-        username
+        author {
+          _id
+          username
+          name
+        }
         thoughtText
         createdAt
         reactionCount

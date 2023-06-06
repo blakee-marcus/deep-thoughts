@@ -5,7 +5,7 @@ const typeDefs = gql`
         _id: ID
         thoughtText: String
         createdAt: String
-        username: String
+        author: [User]
         reactionCount: Int
         reactions: [Reaction]
     }

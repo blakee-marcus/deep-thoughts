@@ -16,6 +16,8 @@
   --spacing-five: calc(1rem * 3);
 
   --font-size-small: 0.65rem;
+
+  --font-weight-light: 400;
 }
 
 * {
@@ -205,6 +207,7 @@ textarea:focus {
   border: 1px solid var(--light);
   border-radius: var(--border-radius);
   background-color: inherit;
+    color: var(--light);
 }
 
 [type='radio']:checked,
@@ -816,6 +819,11 @@ textarea:focus {
 
 .text-small {
   font-size: var(--font-size-small);
+}
+
+/* Font Weight Utils */
+.fw-light {
+  font-weight: var(--font-weight-light);
 }
 
 /* BACKGROUND UTILS */
