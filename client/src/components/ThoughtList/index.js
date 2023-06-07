@@ -5,7 +5,8 @@ const ThoughtList = ({ thoughts }) => {
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }
-
+  console.log('thought list.js ln 8');
+  console.log(thoughts);
   return (
     <div className='border-right'>
       {thoughts &&
@@ -23,7 +24,7 @@ const ThoughtList = ({ thoughts }) => {
             </p>
             <div className='card-body flex-column'>
               <Link to={`/thought/${thought._id}`}>
-                <p>{thought.thoughtText}</p>
+                <p className='ml-2 text-left'>{thought.thoughtText}</p>
                 <div className='flex-row align-center thought-reaction'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

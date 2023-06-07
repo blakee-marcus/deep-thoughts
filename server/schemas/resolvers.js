@@ -17,7 +17,9 @@ const resolvers = {
     },
     thoughts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find({ username: username}).populate('author').sort({ createdAt: -1 });
+      return Thought.find({ username: username })
+        .populate('author')
+        .sort({ createdAt: -1 });
     },
     thought: async (parent, { _id }) => {
       return Thought.findOne({ _id }).populate('author');
@@ -61,7 +63,7 @@ const resolvers = {
       if (context.user) {
         const thought = await Thought.create({
           ...args,
-          username: context.user.username,
+          author: context.user._id,
         });
 
         await User.findByIdAndUpdate(

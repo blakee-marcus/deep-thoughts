@@ -20,6 +20,8 @@ const Profile = () => {
 
   const user = data?.me || data?.user || {};
 
+  console.log('profile.js user: ', user);
+
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to='/profile' />;
   }
@@ -51,12 +53,13 @@ const Profile = () => {
     <div className='w-100'>
       <div className='flex-column mb-0 pl-3'>
         <h3 className='bg-dark-transparent text-light mb-0 pb-0 display-inline-block'>
-          {user.username}
+          {user.name}
         </h3>
         <p className='text-tertiary'>{user.thoughts.length} thoughts</p>
       </div>
       <div className='flex-column mb-0 pl-3 border-bottom'>
-        <h4 className='text-light'>@{user.username}</h4>
+        <h4 className='text-light mb-0'>{user.name}</h4>
+        <h5 className='text-tertiary mt-0 text-standard fw-light'>@{user.username}</h5>
         <p>
           <span className='text-light'>{user.friendCount}</span> following
         </p>

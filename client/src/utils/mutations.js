@@ -44,7 +44,10 @@ export const ADD_THOUGHT = gql`
       _id
       thoughtText
       createdAt
-      username
+      author {
+        _id
+        username
+      }
       reactionCount
       reactions {
         _id

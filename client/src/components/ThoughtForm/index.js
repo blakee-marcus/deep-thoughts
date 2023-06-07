@@ -55,6 +55,7 @@ const ThoughtForm = () => {
       setText('');
       setCharacterCount(0);
     } catch (e) {
+        console.log('Failed to add thought');
       console.error(e);
     }
   };

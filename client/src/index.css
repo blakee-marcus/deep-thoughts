@@ -16,6 +16,7 @@
   --spacing-five: calc(1rem * 3);
 
   --font-size-small: 0.65rem;
+  --font-size-standard: 1rem;
 
   --font-weight-light: 400;
 }
@@ -789,6 +790,10 @@ textarea:focus {
   text-align: right;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-primary {
   color: var(--primary);
 }
@@ -819,6 +824,10 @@ textarea:focus {
 
 .text-small {
   font-size: var(--font-size-small);
+}
+
+.text-standard {
+  font-size: var(--font-size-standard);
 }
 
 /* Font Weight Utils */

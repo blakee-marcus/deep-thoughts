@@ -17,19 +17,22 @@ const SingleThought = (props) => {
 
   const thought = data?.thought || {};
 
+  console.log('single thought', thought);
+
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <div>
       <div className='card mb-0 p-3 border-right'>
-        <p>
-          <span style={{ fontWeight: 700 }} className='text-light'>
-            @{thought.username}
-          </span>{' '}
+        <p style={{ fontWeight: 700 }} className='text-light mb-0'>
+            {thought.author[0].name}
         </p>
-        <p>{thought.thoughtText}</p>
-        <p className='text-tertiary pb-4 border-bottom'>{thought.createdAt}</p>
+        <p className='text-tertiary'>
+            @{thought.author[0].username}
+        </p>
+        <p className='mb-3'>{thought.thoughtText}</p>
+        <p className='text-tertiary pb-3 border-bottom'>{thought.createdAt}</p>
         <div className='flex-row align-center thought-reaction'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
