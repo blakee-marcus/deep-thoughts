@@ -15,10 +15,10 @@ const thoughtSchema = new Schema(
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
-    author: [{
+    author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-    }],
+    },
     reactions: [reactionSchema],
   },
   {

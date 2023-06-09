@@ -19,6 +19,8 @@ db.once('open', async () => {
     userData.push({ username, name, email, password });
   }
 
+  console.log(userData);
+
   const createdUsers = await User.collection.insertMany(userData);
 
   // create friends
@@ -51,8 +53,6 @@ db.once('open', async () => {
     if (user) {
       const thoughtText = faker.hacker.phrase();
 
-      const username = user.username;
-
       const createdThought = await Thought.create({
         thoughtText,
         author: userId,
@@ -76,14 +76,14 @@ db.once('open', async () => {
     const user = await User.findById(userId);
     if (user) {
       const reactionBody = faker.hacker.phrase();
-      const username = user.username;
+    //   const username = user.username;
       const randomThoughtIndex = Math.floor(
         Math.random() * createdThoughts.length
       );
       const { _id: thoughtId } = createdThoughts[randomThoughtIndex];
       await Thought.updateOne(
         { _id: thoughtId },
-        { $push: { reactions: { reactionBody, username } } },
+        { $push: { reactions: { reactionBody, author: user._id } } },
         { runValidators: true }
       );
     }

@@ -19,12 +19,8 @@ const Profile = () => {
   });
 
   const user = data?.me || data?.user || {};
-
-  console.log('profile.js user: ', user);
-
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-    return <Navigate to='/profile' />;
-  }
+  const isOwnProfile =
+    Auth.loggedIn() && Auth.getProfile().data.username === userParam;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,7 +46,7 @@ const Profile = () => {
   };
 
   return (
-    <div className='w-100'>
+    <section className='w-100'>
       <div className='flex-column mb-0 pl-3'>
         <h3 className='bg-dark-transparent text-light mb-0 pb-0 display-inline-block'>
           {user.name}
@@ -58,15 +54,23 @@ const Profile = () => {
         <p className='text-tertiary'>{user.thoughts.length} thoughts</p>
       </div>
       <div className='flex-column mb-0 pl-3 border-bottom'>
-        <h4 className='text-light mb-0'>{user.name}</h4>
-        <h5 className='text-tertiary mt-0 text-standard fw-light'>@{user.username}</h5>
+        <div className='flex-row align-start justify-space-between'>
+          <div className='flex-column'>
+            <h4 className='text-light mb-0'>{user.name}</h4>
+            <h5 className='text-tertiary mt-0 text-standard fw-light'>
+              @{user.username}
+            </h5>
+          </div>
+          <div>{isOwnProfile && <button className='mr-3'>Edit Profile</button>}</div>
+        </div>
+
         <p>
           <span className='text-light'>{user.friendCount}</span> following
         </p>
       </div>
       <div className='flex-column justify-space-between'>
         <div className='col-12 mb-3 col-lg-8'>
-          <ThoughtList thoughts={user.thoughts} />
+          <ThoughtList thoughts={user.thoughts} username={user.username} />
         </div>
 
         {/* <div className='col-12 col-lg-3 mb-3'>
@@ -77,7 +81,7 @@ const Profile = () => {
                     />
                 </div> */}
       </div>
-    </div>
+    </section>
   );
 };
 

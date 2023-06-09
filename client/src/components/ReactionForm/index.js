@@ -54,8 +54,8 @@ const ReactionForm = ({ thoughtId }) => {
           </p>
           <div className='flex-row justify-flex-end align-center'>
             <svg id='thought-progress'>
-              <circle class='bg' cx='15' cy='15' r='13' />
-              <circle class='meter-1' cx='15' cy='15' r='13' />
+              <circle className='bg' cx='15' cy='15' r='13' />
+              <circle className='meter-1' cx='15' cy='15' r='13' />
             </svg>
             <button className='btn mr-3' type='submit'>
               React

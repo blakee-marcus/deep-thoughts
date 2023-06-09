@@ -19,10 +19,13 @@ const resolvers = {
       const params = username ? { username } : {};
       return Thought.find({ username: username })
         .populate('author')
+        .populate({ path: 'reactions', populate: 'author' })
         .sort({ createdAt: -1 });
     },
     thought: async (parent, { _id }) => {
-      return Thought.findOne({ _id }).populate('author');
+      return Thought.findOne({ _id })
+        .populate('author')
+        .populate({ path: 'reactions', populate: 'author' });
     },
     users: async () => {
       return User.find()
@@ -85,7 +88,7 @@ const resolvers = {
             $push: {
               reactions: {
                 reactionBody,
-                username: context.user.username,
+                author: context.user._id,
               },
             },
           },
@@ -108,6 +111,18 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    updateName: async (parent, args, context) => {
+        if (context.user) {
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { name: args.name },
+                { new: true }
+            )
+
+            return updatedUser;
+        }
+        throw new AuthenticationError('You need to be logged in!');
     },
   },
 };

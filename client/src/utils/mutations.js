@@ -65,7 +65,11 @@ export const ADD_REACTION = gql`
         _id
         reactionBody
         createdAt
-        username
+        author {
+          _id
+          username
+          name
+        }
       }
     }
   }

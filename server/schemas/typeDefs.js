@@ -5,7 +5,7 @@ const typeDefs = gql`
         _id: ID
         thoughtText: String
         createdAt: String
-        author: [User]
+        author: User
         reactionCount: Int
         reactions: [Reaction]
     }
@@ -14,7 +14,7 @@ const typeDefs = gql`
         _id: ID
         reactionBody: String
         createdAt: String
-        username: String
+        author: User
     }
     type User{
         _id: ID
@@ -42,6 +42,7 @@ const typeDefs = gql`
         addThought(thoughtText: String!): Thought
         addReaction(thoughtId: ID!, reactionBody: String!): Thought
         addFriend(friendId: ID!): User
+        updateName(username: String!, name: String!): User
     }
 `;
 

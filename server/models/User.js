@@ -11,6 +11,7 @@ const userSchema = new Schema(
     },
     name: {
       type: String,
+      minlength: 1,
       default: function () {
         return this.username;
       },

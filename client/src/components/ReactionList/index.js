@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ReactionList = ({ reactions }) => {
-  return (
+    console.log(`reactionlist.js:`);
+    console.log(reactions);
+    return (
     <div
       className={`border-right w-100 ${reactions.length === 0 && 'border-top'}`}
     >
@@ -15,11 +17,11 @@ const ReactionList = ({ reactions }) => {
                 style={{ fontWeight: 700 }}
                 className='text-light ml-3'
               >
-                @{reaction.username}
+                {reaction.author.name} <span className='text-tertiary fw-light text-standard'>@{reaction.author.username} • {reaction.createdAt}</span>
               </Link>{' '}
-              • {reaction.createdAt}
+              
             </p>
-            <div className='card-body flex-column'>
+            <div className='card-body flex-column ml-2'>
               <p>{reaction.reactionBody}</p>
             </div>
           </div>
