@@ -1,17 +1,19 @@
-import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import React, { useState} from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import ThoughtList from '../components/ThoughtList';
-import FriendList from '../components/FriendList';
-import ThoughtForm from '../components/ThoughtForm';
+// import FriendList from '../components/FriendList';
+// import ThoughtForm from '../components/ThoughtForm';
+import UpdateUserForm from '../components/UpdateUserForm';
 
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import { ADD_FRIEND } from '../utils/mutations';
 
 const Profile = () => {
-  const [addFriend] = useMutation(ADD_FRIEND);
+    const [modalVisible, setModalVisible] = useState(false);
+//   const [addFriend] = useMutation(ADD_FRIEND);
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -35,15 +37,15 @@ const Profile = () => {
     );
   }
 
-  const handleClick = async () => {
-    try {
-      await addFriend({
-        variables: { id: user._id },
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
+//   const handleClick = async () => {
+//     try {
+//       await addFriend({
+//         variables: { id: user._id },
+//       });
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
 
   return (
     <section className='w-100'>
@@ -61,7 +63,8 @@ const Profile = () => {
               @{user.username}
             </h5>
           </div>
-          <div>{isOwnProfile && <button className='mr-3'>Edit Profile</button>}</div>
+          <div>{isOwnProfile && <button className='mr-3 btn btn-outline-light text-standard' onClick={() => setModalVisible(true)}>Edit Profile</button>}</div>
+          {modalVisible && (<UpdateUserForm fields={['poop']}/>)}
         </div>
 
         <p>

@@ -75,3 +75,11 @@ export const ADD_REACTION = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation updateName($username: String!, $name: String!) {
+    updateName(username: $username, name: $name) {
+      _id
+    }
+  }
+`;
+
