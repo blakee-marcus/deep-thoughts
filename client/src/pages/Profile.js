@@ -64,7 +64,7 @@ const Profile = () => {
             </h5>
           </div>
           <div>{isOwnProfile && <button className='mr-3 btn btn-outline-light text-standard' onClick={() => setModalVisible(true)}>Edit Profile</button>}</div>
-          {modalVisible && (<UpdateUserForm fields={['poop']}/>)}
+          {modalVisible && (<UpdateUserForm username={user.username} setModalVisible={setModalVisible}/>)}
         </div>
 
         <p>

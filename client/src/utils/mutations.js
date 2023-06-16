@@ -75,7 +75,7 @@ export const ADD_REACTION = gql`
   }
 `;
 
-export const UPDATE_USER = gql`
+export const UPDATE_NAME = gql`
   mutation updateName($username: String!, $name: String!) {
     updateName(username: $username, name: $name) {
       _id
