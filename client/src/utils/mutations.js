@@ -83,3 +83,11 @@ export const UPDATE_NAME = gql`
   }
 `;
 
+export const FOLLOW_USER = gql`
+mutation followUser($userId: ID!) {
+  followUser(userId: $userId) {
+    _id
+  }
+}
+`
+

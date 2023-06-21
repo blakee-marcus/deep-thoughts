@@ -6,7 +6,7 @@
   --light: #e7e9ea;
   --dark: #2f3336;
   --dark-transparent: #00000077;
-  --error: rgb(228, 46, 1);
+  --error: #f4222e;
   --border-radius: 0.35rem;
 
   --spacing-one: calc(1rem * 0.25);
@@ -20,6 +20,7 @@
   --font-size-standard: 1rem;
 
   --font-weight-light: 400;
+    --font-weight-medium: 500;
 }
 
 * {
@@ -234,6 +235,10 @@ label {
 }
 .form-input input:focus {
     outline: none;
+}
+
+.form-input-error {
+  border-color: var(--error);
 }
 
 [type='radio']:checked,
@@ -939,7 +944,9 @@ label {
 .fw-light {
   font-weight: var(--font-weight-light);
 }
-
+.fw-medium {
+  font-weight: var(--font-weight-medium);
+}
 /* BACKGROUND UTILS */
 .bg-primary {
   background-color: var(--primary);

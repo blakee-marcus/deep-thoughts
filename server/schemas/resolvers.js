@@ -30,13 +30,15 @@ const resolvers = {
     users: async () => {
       return User.find()
         .select('-__v -password')
-        .populate('friends')
+        .populate('following')
+        .populate('followers')
         .populate('thoughts');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
         .select('-__v -password')
-        .populate('friends')
+        .populate('following')
+        .populate('followers')
         .populate('thoughts');
     },
   },
@@ -99,30 +101,35 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addFriend: async (parent, { friendId }, context) => {
+    followUser: async (parent, { userId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { friends: friendId } },
+          { $addToSet: { following: userId } },
           { new: true }
-        ).populate('friends');
+        ).populate('following');
 
-        return updatedUser;
+        const updatedFollowedUser = await User.findOneAndUpdate(
+          { _id: userId },
+          { $addToSet: { followers: context.user._id } },
+          { new: true }
+        ).populate('followers');
+        return updatedUser && updatedFollowedUser;
       }
 
       throw new AuthenticationError('You need to be logged in!');
     },
     updateName: async (parent, args, context) => {
-        if (context.user) {
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { name: args.name },
-                { new: true }
-            )
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { name: args.name },
+          { new: true }
+        );
 
-            return updatedUser;
-        }
-        throw new AuthenticationError('You need to be logged in!');
+        return updatedUser;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };

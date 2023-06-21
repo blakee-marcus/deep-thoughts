@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -9,11 +9,11 @@ import UpdateUserForm from '../components/UpdateUserForm';
 
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import { ADD_FRIEND } from '../utils/mutations';
+import { FOLLOW_USER } from '../utils/mutations';
 
 const Profile = () => {
-    const [modalVisible, setModalVisible] = useState(false);
-//   const [addFriend] = useMutation(ADD_FRIEND);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -23,6 +23,18 @@ const Profile = () => {
   const user = data?.me || data?.user || {};
   const isOwnProfile =
     Auth.loggedIn() && Auth.getProfile().data.username === userParam;
+  const [followUser] = useMutation(FOLLOW_USER);
+
+  // check if logged in user is following this user
+  useEffect(() => {
+    if (user && Auth.loggedIn() && user.followers) {
+      setIsFollowing(
+        user.followers.some(
+          (follower) => follower._id === Auth.getProfile().data._id
+        )
+      );
+    }
+  }, [user]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -37,15 +49,15 @@ const Profile = () => {
     );
   }
 
-//   const handleClick = async () => {
-//     try {
-//       await addFriend({
-//         variables: { id: user._id },
-//       });
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
+  const handleFollow = async () => {
+    try {
+      followUser({
+        variables: { userId: user._id },
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <section className='w-100'>
@@ -63,13 +75,41 @@ const Profile = () => {
               @{user.username}
             </h5>
           </div>
-          <div>{isOwnProfile && <button className='mr-3 btn btn-outline-light text-standard' onClick={() => setModalVisible(true)}>Edit Profile</button>}</div>
-          {modalVisible && (<UpdateUserForm username={user.username} setModalVisible={setModalVisible}/>)}
+          <div>
+            {isOwnProfile && (
+              <button
+                className='mr-3 btn btn-outline-light text-standard'
+                onClick={() => setModalVisible(true)}>
+                Edit Profile
+              </button>
+            )}
+            {!isOwnProfile && !isFollowing && (
+              <button
+                className='mr-3 btn btn-light text-standard'
+                onClick={handleFollow}>
+                Follow
+              </button>
+            )}
+            {isFollowing && (
+              <button className='mr-3 btn btn-light text-standard'>
+                Unfollow
+              </button>
+            )}
+          </div>
+          {modalVisible && (
+            <UpdateUserForm user={user} setModalVisible={setModalVisible} />
+          )}
         </div>
 
-        <p>
-          <span className='text-light'>{user.friendCount}</span> following
-        </p>
+        <div className='flex-row text-tertiary'>
+          <p>
+            <span className='text-light'>{user.followingCount}</span> following
+          </p>
+          <p>
+            <span className='text-light pl-3'>{user.followersCount}</span>{' '}
+            followers
+          </p>
+        </div>
       </div>
       <div className='flex-column justify-space-between'>
         <div className='col-12 mb-3 col-lg-8'>

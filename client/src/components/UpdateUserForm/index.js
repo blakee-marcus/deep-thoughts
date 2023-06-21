@@ -4,7 +4,8 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_NAME } from '../../utils/mutations';
 
 const UpdateUserForm = (props) => {
-  const [formState, setFormState] = useState({ name: '' });
+  console.log(props);
+  const [formState, setFormState] = useState({ name: props.user.name });
   const [errorMessage, setErrorMessage] = useState('');
   const [updateName] = useMutation(UPDATE_NAME);
 
@@ -39,10 +40,15 @@ const UpdateUserForm = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    if (errorMessage) {
+      return;
+    }
+
     const { name } = formState;
+
     try {
       updateName({
-        variables: { username: props.username, name },
+        variables: { username: props.user.username, name },
       });
       props.setModalVisible(false);
       window.location.reload();
@@ -76,8 +82,21 @@ const UpdateUserForm = (props) => {
           </div>
           <div className='modal-body'>
             <form className='flex-column'>
-              <div className='flex-column form-input'>
-                <label htmlFor='name'>Name:</label>
+              <div
+                className={`flex-column form-input ${
+                  errorMessage &&
+                  errorMessage.includes('Name') &&
+                  'form-input-error'
+                }`}>
+                <label
+                  htmlFor='name'
+                  className={`${
+                    errorMessage &&
+                    errorMessage.includes('Name') &&
+                    'text-error'
+                  }`}>
+                  Name:
+                </label>
                 <input
                   name='name'
                   type='text'
@@ -88,7 +107,9 @@ const UpdateUserForm = (props) => {
                 />
               </div>
 
-              {errorMessage && <div>{errorMessage}</div>}
+              {errorMessage && (
+                <div className='text-standard text-error'>{errorMessage}</div>
+              )}
               <div className='modal-footer'></div>
             </form>
           </div>

@@ -56,24 +56,31 @@ export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {
       _id
-      username
-      name
       email
-      friendCount
-      friends {
+      name
+      username
+      followersCount
+      followers {
         _id
+        name
+        username
+      }
+      followingCount
+      following {
+        _id
+        name
         username
       }
       thoughts {
         _id
         author {
           _id
-          username
           name
+          username
         }
-        thoughtText
         createdAt
         reactionCount
+        thoughtText
       }
     }
   }
@@ -83,34 +90,41 @@ export const QUERY_ME = gql`
   {
     me {
       _id
-      username
-      name
       email
-      friendCount
+      name
+      username
+      followersCount
+      followers {
+        _id
+        name
+        username
+      }
+      followingCount
+      following {
+        _id
+        name
+        username
+      }
       thoughts {
         _id
-        author {
-          _id
-          username
-          name
-        }
-        thoughtText
         createdAt
         reactionCount
+        thoughtText
         reactions {
           _id
           createdAt
           reactionBody
           author {
             _id
-            username
             name
+            username
           }
         }
-      }
-      friends {
-        _id
-        username
+        author {
+          _id
+          name
+          username
+        }
       }
     }
   }
@@ -122,9 +136,10 @@ export const QUERY_ME_BASIC = gql`
       _id
       username
       email
-      friendCount
-      friends {
+      followingCount
+      following {
         _id
+        name
         username
       }
     }
