@@ -119,6 +119,24 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    unfollowUser: async (parent, { userId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { following: userId } },
+          { new: true }
+        ).populate('following');
+
+        const updatedFollowedUser = await User.findOneAndUpdate(
+          { _id: userId },
+          { $pull: { followers: context.user._id } },
+          { new: true }
+        ).populate('followers');
+        return updatedUser && updatedFollowedUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
     updateName: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(

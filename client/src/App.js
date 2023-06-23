@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
+import Follow from './pages/Follow';
 import Signup from './pages/Signup';
 
 const httpLink = createHttpLink({
@@ -50,7 +51,8 @@ function App() {
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/profile'>
                   <Route path=':username' element={<Profile />} />
-                  {/* <Route path='' element={<Profile />} /> */}
+                  <Route path=':username/following' element={<Follow navMode='following'/>} />
+                  <Route path=':username/followers' element={<Follow navMode='followers'/>} />
                 </Route>
                 <Route path='/thought/:id' element={<SingleThought />} />
 

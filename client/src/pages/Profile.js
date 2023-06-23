@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import ThoughtList from '../components/ThoughtList';
@@ -9,7 +9,7 @@ import UpdateUserForm from '../components/UpdateUserForm';
 
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import { FOLLOW_USER } from '../utils/mutations';
+import { FOLLOW_USER, UNFOLLOW_USER } from '../utils/mutations';
 
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,6 +24,7 @@ const Profile = () => {
   const isOwnProfile =
     Auth.loggedIn() && Auth.getProfile().data.username === userParam;
   const [followUser] = useMutation(FOLLOW_USER);
+  const [unfollowUser] = useMutation(UNFOLLOW_USER);
 
   // check if logged in user is following this user
   useEffect(() => {
@@ -54,6 +55,17 @@ const Profile = () => {
       followUser({
         variables: { userId: user._id },
       });
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const handleUnfollow = async () => {
+    try {
+      unfollowUser({
+        variables: { userId: user._id },
+      });
+      window.location.reload();
     } catch (e) {
       console.error(e);
     }
@@ -91,7 +103,9 @@ const Profile = () => {
               </button>
             )}
             {isFollowing && (
-              <button className='mr-3 btn btn-light text-standard'>
+              <button
+                className='mr-3 btn btn-light text-standard'
+                onClick={handleUnfollow}>
                 Unfollow
               </button>
             )}
@@ -103,7 +117,9 @@ const Profile = () => {
 
         <div className='flex-row text-tertiary'>
           <p>
+            <Link to={`/profile/${user.username}/following`}>
             <span className='text-light'>{user.followingCount}</span> following
+            </Link>
           </p>
           <p>
             <span className='text-light pl-3'>{user.followersCount}</span>{' '}

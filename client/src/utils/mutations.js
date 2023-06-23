@@ -24,20 +24,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_FRIEND = gql`
-  mutation addFriend($id: ID!) {
-    addFriend(friendId: $id) {
-      _id
-      username
-      friendCount
-      friends {
-        _id
-        username
-      }
-    }
-  }
-`;
-
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!) {
     addThought(thoughtText: $thoughtText) {
@@ -86,6 +72,13 @@ export const UPDATE_NAME = gql`
 export const FOLLOW_USER = gql`
 mutation followUser($userId: ID!) {
   followUser(userId: $userId) {
+    _id
+  }
+}
+`
+export const UNFOLLOW_USER = gql`
+mutation unfollowUser($userId: ID!) {
+  unfollowUser(userId: $userId) {
     _id
   }
 }

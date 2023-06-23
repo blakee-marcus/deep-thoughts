@@ -46,6 +46,7 @@ const typeDefs = gql`
     addFriend(friendId: ID!): User
     updateName(username: String!, name: String!): User
     followUser(userId: ID!): User
+    unfollowUser(userId: ID!): User
   }
 `;
 
