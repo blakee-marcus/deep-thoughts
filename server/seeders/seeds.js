@@ -6,7 +6,7 @@ const { Thought, User } = require('../models');
 db.once('open', async () => {
   await Thought.deleteMany({});
   await User.deleteMany({});
-
+  console.log('user creation');
   // create user data
   const userData = [];
 
@@ -25,7 +25,7 @@ db.once('open', async () => {
   }
 
   const createdUsers = await User.collection.insertMany(userData);
-
+  console.log('friend creation');
   // create friends
   for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(
@@ -41,7 +41,7 @@ db.once('open', async () => {
 
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
   }
-
+  console.log('thought creation');
   // create thoughts
   const createdThoughts = [];
   for (let i = 0; i < 20; i += 1) {
@@ -66,7 +66,7 @@ db.once('open', async () => {
       createdThoughts.push(createdThought);
     }
   }
-
+  console.log('reaction creation');
   // create reactions
   for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(
