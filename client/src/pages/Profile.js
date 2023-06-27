@@ -72,7 +72,7 @@ const Profile = () => {
   };
 
   return (
-    <section className='w-100'>
+    <section className='w-100 border-right'>
       <div className='flex-column mb-0 pl-3'>
         <h3 className='bg-dark-transparent text-light mb-0 pb-0 display-inline-block'>
           {user.name}
@@ -118,12 +118,15 @@ const Profile = () => {
         <div className='flex-row text-tertiary'>
           <p>
             <Link to={`/profile/${user.username}/following`}>
-            <span className='text-light'>{user.followingCount}</span> following
+              <span className='text-light'>{user.followingCount}</span>{' '}
+              following
             </Link>
           </p>
           <p>
-            <span className='text-light pl-3'>{user.followersCount}</span>{' '}
-            followers
+            <Link to={`/profile/${user.username}/followers`}>
+              <span className='text-light pl-3'>{user.followersCount}</span>{' '}
+              followers
+            </Link>
           </p>
         </div>
       </div>
@@ -131,14 +134,6 @@ const Profile = () => {
         <div className='col-12 mb-3 col-lg-8'>
           <ThoughtList thoughts={user.thoughts} username={user.username} />
         </div>
-
-        {/* <div className='col-12 col-lg-3 mb-3'>
-                    <FriendList
-                        username={user.username}
-                        friendCount={user.friendCount}
-                        friends={user.friends}
-                    />
-                </div> */}
       </div>
     </section>
   );

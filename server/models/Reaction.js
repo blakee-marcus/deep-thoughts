@@ -6,23 +6,23 @@ const reactionSchema = new Schema(
     reactionBody: {
       type: String,
       required: true,
-      maxlength: 280
+      maxlength: 280,
     },
     author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => dateFormat(timestamp)
-    }
+      get: (timestamp) => dateFormat(timestamp),
+    },
   },
   {
     toJSON: {
-      getters: true
-    }
-  }
+      getters: true,
+    },
+  },
 );
 
 module.exports = reactionSchema;

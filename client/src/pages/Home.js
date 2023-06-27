@@ -15,7 +15,7 @@ const Home = () => {
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
   return (
-    <div className='flex-row justify-space-between overflow-scroll max-100-vh'>
+    <section className='flex-row justify-space-between overflow-scroll max-100-vh border-right'>
       {loggedIn && (
         <div className='col-12 border-right border-bottom pb-2'>
           <h2 className='text-light p-3'>Home</h2>
@@ -34,7 +34,7 @@ const Home = () => {
           </div>
         ) : null}
       </div>
-    </div>
+    </section>
   );
 };
 

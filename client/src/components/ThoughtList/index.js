@@ -12,7 +12,7 @@ const ThoughtList = (props) => {
   }
 
   return (
-    <div className='border-right'>
+    <div>
       {props.thoughts &&
         props.thoughts.map((thought) => (
           <div key={thought._id} className='card mb-0 mt-2'>

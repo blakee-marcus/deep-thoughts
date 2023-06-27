@@ -12,7 +12,7 @@ const userSchema = new Schema(
     name: {
       type: String,
       minlength: 1,
-      default: function () {
+      default() {
         return this.username;
       },
     },
@@ -50,7 +50,7 @@ const userSchema = new Schema(
     toJSON: {
       virtuals: true,
     },
-  }
+  },
 );
 
 // set up pre-save middleware to create password
@@ -78,4 +78,3 @@ userSchema.virtual('followersCount').get(function () {
 const User = model('User', userSchema);
 
 module.exports = User;
-

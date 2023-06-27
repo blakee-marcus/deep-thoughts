@@ -20,7 +20,7 @@
   --font-size-standard: 1rem;
 
   --font-weight-light: 400;
-    --font-weight-medium: 500;
+  --font-weight-medium: 500;
 }
 
 * {
@@ -213,8 +213,8 @@ textarea:focus {
 }
 
 label {
-    color: var(--tertiary);
-    font-size: 1rem;
+  color: var(--tertiary);
+  font-size: 1rem;
 }
 
 .form-input {
@@ -228,13 +228,13 @@ label {
   color: var(--light);
 }
 .form-input input {
-    background-color: inherit;
-    border: none;
-    color: var(--light);
-    font-size: inherit;
+  background-color: inherit;
+  border: none;
+  color: var(--light);
+  font-size: inherit;
 }
 .form-input input:focus {
-    outline: none;
+  outline: none;
 }
 
 .form-input-error {
@@ -296,17 +296,16 @@ label {
 }
 /* Modal */
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-    width: 50%;
-    height: 50%;
-    overflow: auto;
-    background-color: var(--dark-transparent);
-  }
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+  background-color: var(--dark-transparent);
+}
 
 .modal-dialog {
   width: 100%;
@@ -345,11 +344,11 @@ label {
 }
 
 .modal-body {
-    padding: 0.625rem;
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--light);
-    background-color: var(--dark-transparent);
+  padding: 0.625rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--light);
+  background-color: var(--dark-transparent);
 }
 
 .modal-footer {
@@ -360,18 +359,18 @@ label {
 }
 
 .btn-close {
-    position: float;
-    top: 0.625rem;
-    left: 0.625rem;
-    color: var(--light);
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    text-shadow: 0 1px 0 var(--dark);
-    /* opacity: 0.5; */
-    cursor: pointer;
-    background-color: inherit;
-    border: none;
+  position: float;
+  top: 0.625rem;
+  left: 0.625rem;
+  color: var(--light);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 1px 0 var(--dark);
+  /* opacity: 0.5; */
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
 }
 /* LAYOUT */
 .container {
@@ -972,7 +971,8 @@ label {
 }
 
 .nav-underline {
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 4px solid var(--primary);
+  border-radius: 4px;
 }
 
 /* FLEX CONTENT */

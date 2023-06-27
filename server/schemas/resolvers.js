@@ -1,5 +1,5 @@
-const { User, Thought } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
+const { User, Thought } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -9,7 +9,8 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
           .populate('thoughts')
-          .populate('friends');
+          .populate('following')
+          .populate('followers');
 
         return userData;
       }
@@ -17,30 +18,24 @@ const resolvers = {
     },
     thoughts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find({ username: username })
+      return Thought.find({ username })
         .populate('author')
         .populate({ path: 'reactions', populate: 'author' })
         .sort({ createdAt: -1 });
     },
-    thought: async (parent, { _id }) => {
-      return Thought.findOne({ _id })
-        .populate('author')
-        .populate({ path: 'reactions', populate: 'author' });
-    },
-    users: async () => {
-      return User.find()
-        .select('-__v -password')
-        .populate('following')
-        .populate('followers')
-        .populate('thoughts');
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select('-__v -password')
-        .populate('following')
-        .populate('followers')
-        .populate('thoughts');
-    },
+    thought: async (parent, { _id }) => Thought.findOne({ _id })
+      .populate('author')
+      .populate({ path: 'reactions', populate: 'author' }),
+    users: async () => User.find()
+      .select('-__v -password')
+      .populate('following')
+      .populate('followers')
+      .populate('thoughts'),
+    user: async (parent, { username }) => User.findOne({ username })
+      .select('-__v -password')
+      .populate('following')
+      .populate('followers')
+      .populate('thoughts'),
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -74,7 +69,7 @@ const resolvers = {
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { thoughts: thought._id } },
-          { new: true }
+          { new: true },
         );
 
         return thought;
@@ -94,7 +89,7 @@ const resolvers = {
               },
             },
           },
-          { new: true, runValidators: true }
+          { new: true, runValidators: true },
         );
 
         return updatedThought;
@@ -106,13 +101,13 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { following: userId } },
-          { new: true }
+          { new: true },
         ).populate('following');
 
         const updatedFollowedUser = await User.findOneAndUpdate(
           { _id: userId },
           { $addToSet: { followers: context.user._id } },
-          { new: true }
+          { new: true },
         ).populate('followers');
         return updatedUser && updatedFollowedUser;
       }
@@ -124,13 +119,13 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { following: userId } },
-          { new: true }
+          { new: true },
         ).populate('following');
 
         const updatedFollowedUser = await User.findOneAndUpdate(
           { _id: userId },
           { $pull: { followers: context.user._id } },
-          { new: true }
+          { new: true },
         ).populate('followers');
         return updatedUser && updatedFollowedUser;
       }
@@ -142,7 +137,7 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { name: args.name },
-          { new: true }
+          { new: true },
         );
 
         return updatedUser;
@@ -153,4 +148,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-

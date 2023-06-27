@@ -1,23 +1,80 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 
-const UserList = ({ friendCount, username, friends }) => {
-  if (!friends || !friends.length) {
-    return (
-      <p className='bg-dark text-light p-3'>{username}, make some friends!</p>
-    );
+import Auth from '../../utils/auth';
+import { QUERY_ME } from '../../utils/queries';
+import { FOLLOW_USER, UNFOLLOW_USER } from '../../utils/mutations';
+
+const UserList = (props) => {
+  const { loading, data } = useQuery(QUERY_ME);
+  const [followUser] = useMutation(FOLLOW_USER);
+  const [unfollowUser] = useMutation(UNFOLLOW_USER);
+  const me = data?.me || {};
+  const doesFollow = (userId) => {
+    return me.following.some((user) => user._id === userId);
+  };
+
+  const handleFollow = async (id) => {
+    try {
+      followUser({
+        variables: { userId: id },
+      });
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const handleUnfollow = async (id) => {
+    try {
+      unfollowUser({
+        variables: { userId: id },
+      });
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <h5>
-        {username}'s {friendCount} {friendCount === 1 ? 'friend' : 'friends'}
-      </h5>
-      {friends.map((friend) => (
-        <button className='btn w-100 display-block mb-2' key={friend._id}>
-          <Link to={`/profile/${friend.username}`}>{friend.username}</Link>
-        </button>
-      ))}
+      {props.users &&
+        props.users.map((user) => (
+          <div key={user._id} className='card mt-2 w-100'>
+            <div className='flex-row justify-space-between'>
+              <div className='flex-column'>
+                <Link
+                  to={`/profile/${user.username}`}
+                  style={{ fontWeight: 700 }}
+                  className='text-light ml-3'>
+                  <p className='mb-0 text-standard fw-medium'>{user.name} </p>
+                  <p className='text-tertiary text-standard fw-light mt-0'>
+                    @{user.username}
+                  </p>
+                </Link>{' '}
+              </div>
+              <div>
+                {Auth.loggedIn() && doesFollow(user._id) ? (
+                  <button
+                    className='mr-3 btn btn-light text-standard'
+                    onClick={() => handleUnfollow(user._id)}>
+                    Unfollow
+                  </button>
+                ) : (
+                  <button
+                    className='mr-3 btn btn-light text-standard'
+                    onClick={() => handleFollow(user._id)}>
+                    Follow
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };
