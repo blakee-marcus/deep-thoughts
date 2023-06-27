@@ -14,8 +14,6 @@ const Home = () => {
   const { data: userData } = useQuery(QUERY_ME_BASIC);
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
-  console.log('home.js');
-  console.log(userData);
 
   return (
     <section className='flex-row justify-space-between overflow-scroll max-100-vh border-right'>

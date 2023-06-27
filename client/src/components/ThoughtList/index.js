@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ThoughtList = (props) => {
-  if (!props.thoughts.length) {
+    console.log('thoughtlist.js');
+    console.log(props);
+    if (!props.thoughts.length) {
     return (
       <section className='flex-column align-center'>
         <h3 className='text-light'>@{props.username} hasn't Thought</h3>{' '}
