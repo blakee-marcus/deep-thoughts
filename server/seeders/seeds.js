@@ -10,7 +10,7 @@ db.once('open', async () => {
   // create user data
   const userData = [];
 
-  for (let i = 0; i < 50; i += 1) {
+  for (let i = 0; i < 20; i += 1) {
     const username = faker.internet.userName();
     const name = `${faker.hacker.ingverb()} ${faker.hacker.noun()}`;
     const email = faker.internet.email(username);
@@ -27,7 +27,7 @@ db.once('open', async () => {
   const createdUsers = await User.collection.insertMany(userData);
 
   // create friends
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(
       Math.random() * createdUsers.insertedCount - 1,
     );
@@ -44,7 +44,7 @@ db.once('open', async () => {
 
   // create thoughts
   const createdThoughts = [];
-  for (let i = 0; i < 90; i += 1) {
+  for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(
       Math.random() * createdUsers.insertedCount - 1,
     );
@@ -68,7 +68,7 @@ db.once('open', async () => {
   }
 
   // create reactions
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 20; i += 1) {
     const randomUserIndex = Math.floor(
       Math.random() * createdUsers.insertedCount - 1,
     );
@@ -88,6 +88,6 @@ db.once('open', async () => {
       );
     }
   }
-
+  console.log('all done!');
   process.exit(0);
 });
