@@ -39,7 +39,7 @@ db.once('open', async () => {
       friendId = createdUsers.insertedIds[randomUserIndex];
     }
 
-    await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
+    await User.updateOne({ _id: userId }, { $addToSet: { following: friendId } });
   }
   console.log('thought creation');
   // create thoughts
