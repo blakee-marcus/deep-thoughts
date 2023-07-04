@@ -40,7 +40,7 @@ const Profile = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+console.log(user);
   if (!user?.username) {
     return (
       <h4>
