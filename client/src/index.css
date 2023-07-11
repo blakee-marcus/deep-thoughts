@@ -171,10 +171,20 @@ textarea:focus {
   border: 1px solid var(--light);
   color: var(--light);
 }
+.btn-outline-tertiary {
+  background-color: transparent;
+  border: 1px solid var(--tertiary);
+  color: var(--light);
+}
 
 .btn-light {
   background-color: var(--light);
   color: var(--dark);
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-right: 5px;
 }
 /* CARDS */
 .card {
@@ -222,7 +232,7 @@ label {
   padding: 0.3rem;
   margin: 0.2rem 0;
   font-size: 1.125rem;
-  border: 1px solid var(--light);
+  border: 1px solid var(--tertiary);
   border-radius: var(--border-radius);
   background-color: inherit;
   color: var(--light);
@@ -372,6 +382,12 @@ label {
   background-color: inherit;
   border: none;
 }
+
+.link-underline-primary:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 /* LAYOUT */
 .container {
   width: 100%;

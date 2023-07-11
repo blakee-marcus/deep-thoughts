@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ThoughtList = (props) => {
-    console.log('thoughtlist.js');
-    console.log(props);
     if (!props.thoughts.length) {
     return (
       <section className='flex-column align-center'>
@@ -28,7 +26,7 @@ const ThoughtList = (props) => {
                   @{thought.author.username}
                 </span>
               </Link>{' '}
-              • <span className='text-tertiary'>{thought.createdAt}</span>
+              <span className='text-tertiary'>•</span> <span className='text-tertiary'>{thought.createdAt}</span>
             </p>
             <div className='card-body flex-column'>
               <Link to={`/thought/${thought._id}`}>

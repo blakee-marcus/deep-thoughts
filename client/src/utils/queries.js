@@ -58,6 +58,9 @@ export const QUERY_USER = gql`
       _id
       email
       name
+      bio
+      location
+      website
       username
       followersCount
       followers {

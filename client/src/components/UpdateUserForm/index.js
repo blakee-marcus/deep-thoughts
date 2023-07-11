@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { UPDATE_NAME } from '../../utils/mutations';
+import { UPDATE_PROFILE } from '../../utils/mutations';
 
 const UpdateUserForm = (props) => {
   console.log(props);
-  const [formState, setFormState] = useState({ name: props.user.name });
+  const [formState, setFormState] = useState({ name: props.user.name, bio: props.user.bio, location: props.user.location, website: props.user.website });
   const [errorMessage, setErrorMessage] = useState('');
-  const [updateName] = useMutation(UPDATE_NAME);
+  const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   const validate = (name, value) => {
     let errorMessage = '';
@@ -44,11 +44,11 @@ const UpdateUserForm = (props) => {
       return;
     }
 
-    const { name } = formState;
+    const { name, bio, location, website } = formState;
 
     try {
-      updateName({
-        variables: { username: props.user.username, name },
+      updateProfile({
+        variables: { username: props.user.username, name, bio, location, website },
       });
       props.setModalVisible(false);
       window.location.reload();
@@ -83,7 +83,7 @@ const UpdateUserForm = (props) => {
           <div className='modal-body'>
             <form className='flex-column'>
               <div
-                className={`flex-column form-input ${
+                className={`flex-column form-input mb-3${
                   errorMessage &&
                   errorMessage.includes('Name') &&
                   'form-input-error'
@@ -102,6 +102,78 @@ const UpdateUserForm = (props) => {
                   type='text'
                   id='name'
                   value={formState.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div
+                className={`flex-column form-input mb-3${
+                  errorMessage &&
+                  errorMessage.includes('bio') &&
+                  'form-input-error'
+                }`}>
+                <label
+                  htmlFor='bio'
+                  className={`${
+                    errorMessage &&
+                    errorMessage.includes('Bio') &&
+                    'text-error'
+                  }`}>
+                  Bio:
+                </label>
+                <input
+                  name='bio'
+                  type='text'
+                  id='bio'
+                  value={formState.bio}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div
+                className={`flex-column form-input mb-3${
+                  errorMessage &&
+                  errorMessage.includes('location') &&
+                  'form-input-error'
+                }`}>
+                <label
+                  htmlFor='location'
+                  className={`${
+                    errorMessage &&
+                    errorMessage.includes('Location') &&
+                    'text-error'
+                  }`}>
+                  Location:
+                </label>
+                <input
+                  name='location'
+                  type='text'
+                  id='location'
+                  value={formState.location}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div
+                className={`flex-column form-input ${
+                  errorMessage &&
+                  errorMessage.includes('website') &&
+                  'form-input-error'
+                }`}>
+                <label
+                  htmlFor='website'
+                  className={`${
+                    errorMessage &&
+                    errorMessage.includes('Website') &&
+                    'text-error'
+                  }`}>
+                  Website:
+                </label>
+                <input
+                  name='website'
+                  type='text'
+                  id='website'
+                  value={formState.website}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />

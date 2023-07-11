@@ -12,8 +12,30 @@ const userSchema = new Schema(
     name: {
       type: String,
       minlength: 1,
+      maxlength: 50,
       default() {
         return this.username;
+      },
+    },
+    bio: {
+      type: String,
+      maxlength: 160,
+      default() {
+        return '';
+      },
+    },
+    location: {
+      type: String,
+      maxlength: 30,
+      default() {
+        return '';
+      },
+    },
+    website: {
+      type: String,
+      maxlength: 100,
+      default() {
+        return '';
       },
     },
     email: {

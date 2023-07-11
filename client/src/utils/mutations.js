@@ -33,6 +33,7 @@ export const ADD_THOUGHT = gql`
       author {
         _id
         username
+        name
       }
       reactionCount
       reactions {
@@ -68,6 +69,18 @@ export const UPDATE_NAME = gql`
     }
   }
 `;
+
+export const UPDATE_PROFILE = gql`
+mutation UpdateProfile($username: String!, $name: String!, $bio: String!, $location: String!, $website: String!) {
+  updateProfile(username: $username, name: $name, bio: $bio, location: $location, website: $website) {
+    _id
+    bio
+    location
+    name
+    username
+    website
+  }
+}`;
 
 export const FOLLOW_USER = gql`
 mutation followUser($userId: ID!) {

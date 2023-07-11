@@ -8,7 +8,10 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('thoughts')
+          .populate({
+            path: 'thoughts',
+            options: { sort: { createdAt: -1 } }
+          })
           .populate('following')
           .populate('followers');
 
@@ -30,12 +33,18 @@ const resolvers = {
       .select('-__v -password')
       .populate('following')
       .populate('followers')
-      .populate('thoughts'),
+      .populate({
+        path: 'thoughts',
+        options: { sort: { createdAt: -1 } }
+      }),
     user: async (parent, { username }) => User.findOne({ username })
       .select('-__v -password')
       .populate('following')
       .populate('followers')
-      .populate('thoughts'),
+      .populate({
+        path: 'thoughts',
+        options: { sort: { createdAt: -1 } }
+      }),
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -132,11 +141,11 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    updateName: async (parent, args, context) => {
+    updateProfile: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { name: args.name },
+          { name: args.name, bio: args.name, location: args.location, website: args.website },
           { new: true },
         );
 

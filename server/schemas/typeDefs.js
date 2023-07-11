@@ -20,6 +20,9 @@ const typeDefs = gql`
     _id: ID
     username: String
     name: String
+    bio: String
+    location: String
+    website: String
     email: String
     followingCount: Int
     followersCount: Int
@@ -44,7 +47,7 @@ const typeDefs = gql`
     addThought(thoughtText: String!): Thought
     addReaction(thoughtId: ID!, reactionBody: String!): Thought
     addFriend(friendId: ID!): User
-    updateName(username: String!, name: String!): User
+    updateProfile(username: String!, name: String!, bio: String!, location: String!, website: String!): User
     followUser(userId: ID!): User
     unfollowUser(userId: ID!): User
   }
