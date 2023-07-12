@@ -21,6 +21,7 @@
 
   --font-weight-light: 400;
   --font-weight-medium: 500;
+  --font-weight-heavy: 700;
 }
 
 * {
@@ -385,6 +386,10 @@ label {
 
 .link-underline-primary:hover {
   color: var(--primary);
+  text-decoration: underline;
+}
+.link-underline-tertiary:hover {
+  color: var(--tertiary);
   text-decoration: underline;
 }
 
@@ -961,6 +966,9 @@ label {
 }
 .fw-medium {
   font-weight: var(--font-weight-medium);
+}
+.fw-heavy {
+  font-weight: var(--font-weight-heavy);
 }
 /* BACKGROUND UTILS */
 .bg-primary {

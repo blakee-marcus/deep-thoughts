@@ -13,12 +13,18 @@ db.once('open', async () => {
   for (let i = 0; i < 20; i += 1) {
     const username = faker.internet.userName();
     const name = `${faker.hacker.ingverb()} ${faker.hacker.noun()}`;
+    const bio = faker.company.catchPhrase();
+    const location = faker.address.city();
+    const website = faker.internet.url();
     const email = faker.internet.email(username);
     const password = faker.internet.password();
 
     userData.push({
       username,
       name,
+      bio,
+      location,
+      website,
       email,
       password,
     });

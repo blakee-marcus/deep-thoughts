@@ -67,12 +67,14 @@ export const QUERY_USER = gql`
         _id
         name
         username
+        bio
       }
       followingCount
       following {
         _id
         name
         username
+        bio
       }
       thoughts {
         _id
@@ -95,18 +97,23 @@ export const QUERY_ME = gql`
       _id
       email
       name
+      bio
+      location
+      website
       username
       followersCount
       followers {
         _id
         name
         username
+        bio
       }
       followingCount
       following {
         _id
         name
         username
+        bio
       }
       thoughts {
         _id

@@ -14,7 +14,7 @@ const UserList = (props) => {
   const doesFollow = (userId) => {
     return me.following.some((user) => user._id === userId);
   };
-
+console.log(props);
   const handleFollow = async (id) => {
     try {
       followUser({
@@ -51,10 +51,11 @@ const UserList = (props) => {
                   to={`/profile/${user.username}`}
                   style={{ fontWeight: 700 }}
                   className='text-light ml-3'>
-                  <p className='mb-0 text-standard fw-medium'>{user.name} </p>
-                  <p className='text-tertiary text-standard fw-light mt-0'>
+                  <p className='mb-0 text-standard fw-heavy'>{user.name} </p>
+                  <p className='text-tertiary text-standard fw-light m-0'>
                     @{user.username}
                   </p>
+                  <p className='m-0 mb-1 text-standard fw-light'>{user.bio} </p>
                 </Link>{' '}
               </div>
               <div>

@@ -83,7 +83,7 @@ const Profile = () => {
         <div className='flex-row align-start justify-space-between'>
           <div className='flex-column'>
             <h4 className='text-light mb-0'>{user.name}</h4>
-            <h5 className='text-tertiary mt-0 text-standard fw-light'>
+            <h5 className='text-tertiary mt-0 text-standard fw-light mb-3'>
               @{user.username}
             </h5>
           </div>
@@ -115,10 +115,10 @@ const Profile = () => {
             <UpdateUserForm user={user} setModalVisible={setModalVisible} />
           )}
         </div>
-        <div className='flex-row text-light text-standard'>
+        <div className='flex-row text-light text-standard mb-2'>
           {user.bio}
         </div>
-        <div className='flex-row text-tertiary text-standard'>
+        <div className='flex-row text-tertiary text-standard mb-2'>
           <div className='flex-row align-center mr-3'>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-geo-alt text-tertiary" viewBox="0 0 16 16">
               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
@@ -126,25 +126,25 @@ const Profile = () => {
             </svg>
             <p className='m-0'>{user.location}</p>
           </div>
-          <a className='flex-row link-underline-primary' href={user.website} >
+          <a className='flex-row link-underline-primary' href={user.website} rel="noopener noreferrer nofollow" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-link-45deg text-tertiary" viewBox="0 0 16 16">
               <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
               <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" />
             </svg>
-            <p className='m-0 text-primary '>{user.website}</p>
+            <p className='m-0 text-primary'>{user.website}</p>
           </a>
 
         </div>
         <div className='flex-row text-tertiary'>
           <p>
-            <Link to={`/profile/${user.username}/following`}>
+            <Link to={`/profile/${user.username}/following`} className='link-underline-tertiary'>
               <span className='text-light'>{user.followingCount}</span>{' '}
               following
             </Link>
           </p>
           <p>
-            <Link to={`/profile/${user.username}/followers`}>
-              <span className='text-light pl-3'>{user.followersCount}</span>{' '}
+            <Link to={`/profile/${user.username}/followers`} className='link-underline-tertiary'>
+              <span className='text-light pl-3 link-underline-light'>{user.followersCount}</span>{' '}
               followers
             </Link>
           </p>
