@@ -87,13 +87,26 @@ mutation followUser($userId: ID!) {
   followUser(userId: $userId) {
     _id
   }
-}
-`
+}`;
+
 export const UNFOLLOW_USER = gql`
 mutation unfollowUser($userId: ID!) {
   unfollowUser(userId: $userId) {
     _id
   }
-}
-`
+}`;
+
+export const LIKE_THOUGHT = gql`
+mutation LikeThought($thoughtId: ID!) {
+  likeThought(thoughtId: $thoughtId) {
+    _id
+  }
+}`;
+
+export const UNLIKE_THOUGHT = gql`
+mutation UnlikeThought($thoughtId: ID!) {
+  unlikeThought(thoughtId: $thoughtId) {
+    _id
+  }
+}`;
 

@@ -8,6 +8,7 @@ const typeDefs = gql`
     author: User
     reactionCount: Int
     reactions: [Reaction]
+    likes: [User]
   }
 
   type Reaction {
@@ -29,6 +30,7 @@ const typeDefs = gql`
     thoughts: [Thought]
     following: [User]
     followers: [User]
+    likes: [Thought]
   }
   type Auth {
     token: ID!
@@ -50,6 +52,8 @@ const typeDefs = gql`
     updateProfile(username: String!, name: String!, bio: String!, location: String!, website: String!): User
     followUser(userId: ID!): User
     unfollowUser(userId: ID!): User
+    likeThought(thoughtId: ID!): Thought
+    unlikeThought(thoughtId: ID!): Thought
   }
 `;
 

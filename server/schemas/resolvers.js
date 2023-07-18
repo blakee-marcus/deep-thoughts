@@ -13,7 +13,8 @@ const resolvers = {
             options: { sort: { createdAt: -1 } }
           })
           .populate('following')
-          .populate('followers');
+          .populate('followers')
+          .populate('likes');
 
         return userData;
       }
@@ -23,16 +24,19 @@ const resolvers = {
       const params = username ? { username } : {};
       return Thought.find({ username })
         .populate('author')
+        .populate('likes')
         .populate({ path: 'reactions', populate: 'author' })
         .sort({ createdAt: -1 });
     },
     thought: async (parent, { _id }) => Thought.findOne({ _id })
       .populate('author')
+      .populate('likes')
       .populate({ path: 'reactions', populate: 'author' }),
     users: async () => User.find()
       .select('-__v -password')
       .populate('following')
       .populate('followers')
+      .populate('likes')
       .populate({
         path: 'thoughts',
         options: { sort: { createdAt: -1 } }
@@ -41,6 +45,7 @@ const resolvers = {
       .select('-__v -password')
       .populate('following')
       .populate('followers')
+      .populate('likes')
       .populate({
         path: 'thoughts',
         options: { sort: { createdAt: -1 } }
@@ -137,6 +142,42 @@ const resolvers = {
           { new: true },
         ).populate('followers');
         return updatedUser && updatedFollowedUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    likeThought: async (parent, { thoughtId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { likes: thoughtId } },
+          { new: true },
+        ).populate('likes');
+
+        const updatedThought = await Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          { $addToSet: { likes: context.user._id } },
+          { new: true },
+        ).populate('likes');
+        return updatedUser && updatedThought;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    unlikeThought: async (parent, { thoughtId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { likes: thoughtId } },
+          { new: true },
+        ).populate('likes');
+
+        const updatedThought = await Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          { $pull: { likes: context.user._id } },
+          { new: true },
+        ).populate('likes');
+        return updatedUser && updatedThought;
       }
 
       throw new AuthenticationError('You need to be logged in!');

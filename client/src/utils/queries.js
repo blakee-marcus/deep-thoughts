@@ -22,6 +22,12 @@ export const QUERY_THOUGHTS = gql`
           username
         }
       }
+      likes {
+        _id
+        name
+        username
+        bio
+      }
     }
   }
 `;
@@ -47,6 +53,12 @@ export const QUERY_THOUGHT = gql`
           name
           username
         }
+      }
+      likes {
+        _id
+        name
+        username
+        bio
       }
     }
   }
@@ -87,6 +99,17 @@ export const QUERY_USER = gql`
         reactionCount
         thoughtText
       }
+    }
+    likes {
+      _id
+        author {
+          _id
+          name
+          username
+        }
+        createdAt
+        reactionCount
+        thoughtText
     }
   }
 `;
@@ -136,6 +159,17 @@ export const QUERY_ME = gql`
           username
         }
       }
+      likes {
+      _id
+        author {
+          _id
+          name
+          username
+        }
+        createdAt
+        reactionCount
+        thoughtText
+    }
     }
   }
 `;
