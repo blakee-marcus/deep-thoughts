@@ -98,18 +98,13 @@ export const QUERY_USER = gql`
         createdAt
         reactionCount
         thoughtText
-      }
-    }
-    likes {
-      _id
-        author {
-          _id
-          name
-          username
+        likes {
+        _id
         }
-        createdAt
-        reactionCount
-        thoughtText
+      }
+      likes {
+      _id
+    }
     }
   }
 `;
@@ -159,17 +154,6 @@ export const QUERY_ME = gql`
           username
         }
       }
-      likes {
-      _id
-        author {
-          _id
-          name
-          username
-        }
-        createdAt
-        reactionCount
-        thoughtText
-    }
     }
   }
 `;
@@ -189,4 +173,13 @@ export const QUERY_ME_BASIC = gql`
     }
   }
 `;
+
+export const QUERY_MY_LIKES = gql`
+  query me {
+    me {
+      likes {
+        _id
+      }
+    }
+  }`;
 
