@@ -51,6 +51,7 @@ function App() {
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/profile'>
                   <Route path=':username' element={<Profile />} />
+                  <Route path=':username/likes' element={<Profile />} />
                   <Route path=':username/following' element={<Follow navMode='following'/>} />
                   <Route path=':username/followers' element={<Follow navMode='followers'/>} />
                 </Route>

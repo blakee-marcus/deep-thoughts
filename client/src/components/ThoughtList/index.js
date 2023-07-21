@@ -1,25 +1,31 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { QUERY_MY_LIKES } from '../../utils/queries';
 import { LIKE_THOUGHT, UNLIKE_THOUGHT } from '../../utils/mutations';
 
-const ThoughtList = (props) => {
+const ThoughtList = ({ thoughts, username }) => {
+  const { data } = useQuery(QUERY_MY_LIKES);
   const [likeThought] = useMutation(LIKE_THOUGHT);
   const [unlikeThought] = useMutation(UNLIKE_THOUGHT);
-  const { data } = useQuery(QUERY_MY_LIKES);
-  const [likedThoughts, setLikedThoughts] = useState([data?.me?.likes]);
+  const [likedThoughts, setLikedThoughts] = useState([]);
 
-  console.log(likedThoughts);
+  useEffect(() => {
+    if (data) {
+      setLikedThoughts(data?.me?.likes.map((like) => like._id));
+    }
+  }, [data]);
 
-  const myLikes = data?.me?.likes || [];
-
+  const checkIfLiked = (thoughtId) => {
+    return likedThoughts?.some((like) => like === thoughtId);
+  };
   const handleLike = async (thoughtId) => {
     try {
       likeThought({
         variables: { thoughtId },
       });
+      setLikedThoughts([...likedThoughts, thoughtId]);
     } catch (e) {
       console.error(e);
     }
@@ -29,15 +35,16 @@ const ThoughtList = (props) => {
       unlikeThought({
         variables: { thoughtId },
       });
+      setLikedThoughts(likedThoughts.filter((id) => id !== thoughtId));
     } catch (e) {
       console.error(e);
     }
   };
 
-  if (!props.thoughts.length) {
+  if (!thoughts.length) {
     return (
       <section className='flex-column align-center'>
-        <h3 className='text-light'>@{props.username} hasn't Thought</h3>{' '}
+        <h3 className='text-light'>@{username} hasn't Thought</h3>{' '}
         <p className='text-tertiary'>When they do, their Thoughts will show up here.</p>
       </section>
     );
@@ -45,8 +52,8 @@ const ThoughtList = (props) => {
 
   return (
     <div>
-      {props.thoughts &&
-        props.thoughts.map((thought) => (
+      {thoughts &&
+        thoughts.map((thought) => (
           <div key={thought._id} className='card mb-0 mt-2'>
             <p className='mb-0'>
               <Link
@@ -81,11 +88,8 @@ const ThoughtList = (props) => {
                 </div>
                 {/* Likes */}
                 <div className='flex-row align-center ml-5'>
-                  <button className='flex-row align-center btn-clear cursor-pointer' onClick={() => myLikes.some((likes) => likes._id === thought._id) ? handleUnlike(thought._id) : handleLike(thought._id)}>
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#71767b" className="bi bi-heart" viewBox="0 0 16 16">
-                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                    </svg> */}
-                    {myLikes.some((likes) => likes._id === thought._id) ?
+                  <button className='flex-row align-center btn-clear cursor-pointer' onClick={() => checkIfLiked(thought._id) ? handleUnlike(thought._id) : handleLike(thought._id)}>
+                    {checkIfLiked(thought._id) ?
                       (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f91880" className="bi bi-heart-fill" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                       </svg>)
@@ -95,7 +99,7 @@ const ThoughtList = (props) => {
                       </svg>)
                     }
                   </button>
-                  <p className={`mb-0 ml-3 ${(myLikes.some((likes) => likes._id === thought._id) ? ('text-like') : ('text-tertiary'))}`}>{thought.likes.length}</p>
+                  <p className={`mb-0 ml-3 ${(checkIfLiked(thought._id) ? ('text-like') : ('text-tertiary'))}`}>{thought.likes.length}</p>
                 </div>
               </div>
             </div>

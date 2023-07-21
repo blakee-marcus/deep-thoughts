@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import ThoughtList from '../components/ThoughtList';
@@ -12,6 +12,7 @@ import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import { FOLLOW_USER, UNFOLLOW_USER } from '../utils/mutations';
 
 const Profile = () => {
+  const location = useLocation();
   const [modalVisible, setModalVisible] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const { username: userParam } = useParams();
@@ -19,7 +20,7 @@ const Profile = () => {
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
-  
+
   const user = data?.me || data?.user || {};
   const isOwnProfile =
     Auth.loggedIn() && Auth.getProfile().data.username === userParam;
@@ -40,7 +41,7 @@ const Profile = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (!user?.username) {
     return (
       <h4>
@@ -70,7 +71,7 @@ const Profile = () => {
       console.error(e);
     }
   };
-
+  
   return (
     <section className='w-100 border-right'>
       <div className='flex-column mb-0 pl-3'>
@@ -149,10 +150,21 @@ const Profile = () => {
             </Link>
           </p>
         </div>
+        <div className='flex-row justify-space-around'>
+          <Link to={`/profile/${user.username}`} className={location.pathname === `/profile/${user.username}` ? 'nav-underline' : ''}>
+            <p className='text-light'>Thoughts</p>
+          </Link>
+          <Link to={`/profile/${user.username}/likes`} className={`${(location.pathname === `/profile/${user.username}/likes`) && ('nav-underline')}`}>
+            <p className='text-tertiary'>Likes</p>
+          </Link>
+        </div>
       </div>
       <div className='flex-column justify-space-between'>
         <div className='col-12 mb-3 col-lg-8'>
-          <ThoughtList thoughts={user.thoughts} username={user.username} />
+          {location.pathname === `/profile/${user.username}` && (
+            <ThoughtList thoughts={user.thoughts} username={user.username} />)}
+          {location.pathname === `/profile/${user.username}/likes` && (
+            <ThoughtList thoughts={user.likes} username={user.username} />)}
         </div>
       </div>
     </section>
