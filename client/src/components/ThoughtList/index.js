@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_MY_LIKES } from '../../utils/queries';
 import { LIKE_THOUGHT, UNLIKE_THOUGHT } from '../../utils/mutations';
 
-const ThoughtList = ({ thoughts, username }) => {
+const ThoughtList = ({ thoughts, username, displayLikeList }) => {
   const { data } = useQuery(QUERY_MY_LIKES);
   const [likeThought] = useMutation(LIKE_THOUGHT);
   const [unlikeThought] = useMutation(UNLIKE_THOUGHT);
@@ -40,6 +40,15 @@ const ThoughtList = ({ thoughts, username }) => {
       console.error(e);
     }
   };
+
+  if (!thoughts.length && displayLikeList) {
+    return (
+      <section className='flex-column align-center justify-center'>
+        <h3 className='text-light fw-heavy'>@{username} hasn't hasn’t liked any Thoughts</h3>{' '}
+        <p className='text-tertiary'>When they do, those Thoughts will show up here.</p>
+      </section>
+    );
+  }
 
   if (!thoughts.length) {
     return (

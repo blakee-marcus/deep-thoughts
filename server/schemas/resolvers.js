@@ -45,7 +45,7 @@ const resolvers = {
       .select('-__v -password')
       .populate('following')
       .populate('followers')
-      .populate('likes')
+      .populate({ path: 'likes', populate: 'author' })
       .populate({
         path: 'thoughts',
         options: { sort: { createdAt: -1 } }

@@ -21,6 +21,8 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
+  console.log(data);
+
   const user = data?.me || data?.user || {};
   const isOwnProfile =
     Auth.loggedIn() && Auth.getProfile().data.username === userParam;
@@ -43,12 +45,7 @@ const Profile = () => {
   }
 
   if (!user?.username) {
-    return (
-      <h4>
-        You need to be logged in to see this page. Use the navigation links
-        above to sign up or log in!
-      </h4>
-    );
+    window.location.replace('/login');
   }
 
   const handleFollow = async () => {
@@ -71,7 +68,7 @@ const Profile = () => {
       console.error(e);
     }
   };
-  
+
   return (
     <section className='w-100 border-right'>
       <div className='flex-column mb-0 pl-3'>
@@ -152,19 +149,19 @@ const Profile = () => {
         </div>
         <div className='flex-row justify-space-around'>
           <Link to={`/profile/${user.username}`} className={location.pathname === `/profile/${user.username}` ? 'nav-underline' : ''}>
-            <p className='text-light'>Thoughts</p>
+            <p className={location.pathname === `/profile/${user.username}` ? 'text-light' : 'text-tertiary'}>Thoughts</p>
           </Link>
-          <Link to={`/profile/${user.username}/likes`} className={`${(location.pathname === `/profile/${user.username}/likes`) && ('nav-underline')}`}>
-            <p className='text-tertiary'>Likes</p>
+          <Link to={`/profile/${user.username}/likes`} className={location.pathname === `/profile/${user.username}/likes` ? 'nav-underline' : ''}>
+            <p className={location.pathname === `/profile/${user.username}/likes` ? 'text-light' : 'text-tertiary'}>Likes</p>
           </Link>
         </div>
       </div>
       <div className='flex-column justify-space-between'>
         <div className='col-12 mb-3 col-lg-8'>
           {location.pathname === `/profile/${user.username}` && (
-            <ThoughtList thoughts={user.thoughts} username={user.username} />)}
+            <ThoughtList thoughts={user.thoughts} username={user.username} displayLikeList={false}/>)}
           {location.pathname === `/profile/${user.username}/likes` && (
-            <ThoughtList thoughts={user.likes} username={user.username} />)}
+            <ThoughtList thoughts={user.likes} username={user.username} displayLikeList={true} />)}
         </div>
       </div>
     </section>

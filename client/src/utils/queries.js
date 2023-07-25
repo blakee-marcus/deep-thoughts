@@ -103,19 +103,19 @@ export const QUERY_USER = gql`
         }
       }
       likes {
-      _id
-      author {
+        _id
+        author {
           _id
           name
           username
         }
-      createdAt
-      likes {
-        _id
+        createdAt
+        likes {
+          _id
+        }
+        reactionCount
+        thoughtText
       }
-      reactionCount
-      thoughtText
-    }
     }
   }
 `;
