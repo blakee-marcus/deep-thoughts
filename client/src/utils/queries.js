@@ -187,10 +187,10 @@ export const QUERY_ME_BASIC = gql`
 
 export const QUERY_MY_LIKES = gql`
   query me {
-    me {
-      likes {
-        _id
-      }
+  me {
+    likes {
+      _id
     }
-  }`;
+  }
+}`;
 

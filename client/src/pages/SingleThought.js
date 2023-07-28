@@ -19,16 +19,21 @@ const SingleThought = (props) => {
   const { loading, data } = useQuery(QUERY_THOUGHT, {
     variables: { id: thoughtId },
   });
+  console.log('likeData');
+  console.log(likeData);
+
 
   const thought = data?.thought || {};
 
   useEffect(() => {
     if (likeData) {
+      console.log(likeData);
       setLikedThoughts(likeData?.me?.likes.map((like) => like._id));
     }
   }, [likeData]);
 
   const checkIfLiked = (thoughtId) => {
+    
     return likedThoughts?.some((like) => like === thoughtId);
   };
 

@@ -21,8 +21,6 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
-  console.log(data);
-
   const user = data?.me || data?.user || {};
   const isOwnProfile =
     Auth.loggedIn() && Auth.getProfile().data.username === userParam;
