@@ -11,7 +11,6 @@ import ThoughtForm from '../components/ThoughtForm';
 const Home = () => {
   // use useQuery hook to make query request
   const { loading, data } = useQuery(QUERY_THOUGHTS);
-  const { data: userData } = useQuery(QUERY_ME_BASIC);
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
 
@@ -24,7 +23,7 @@ const Home = () => {
         </div>
       )}
       <div className='w-100 mb-3 col-lg-12'>
-        {loading ? <div>Loading...</div> : <ThoughtList thoughts={thoughts} />}
+        {loading ? <div className='text-light'>Loading...</div> : <ThoughtList thoughts={thoughts} />}
         
       </div>
     </section>

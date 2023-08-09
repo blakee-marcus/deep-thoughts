@@ -96,9 +96,11 @@ a {
 a:visited {
   color: inherit;
 }
+
 header {
   border-right: 1px solid var(--dark);
 }
+
 nav {
   width: 100%;
   justify-content: center;
@@ -173,6 +175,7 @@ textarea:focus {
   border: 1px solid var(--light);
   color: var(--light);
 }
+
 .btn-outline-tertiary {
   background-color: transparent;
   border: 1px solid var(--tertiary);
@@ -198,6 +201,7 @@ textarea:focus {
   font-size: 1.5rem;
   margin-right: 5px;
 }
+
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
@@ -249,12 +253,14 @@ label {
   background-color: inherit;
   color: var(--light);
 }
+
 .form-input input {
   background-color: inherit;
   border: none;
   color: var(--light);
   font-size: inherit;
 }
+
 .form-input input:focus {
   outline: none;
 }
@@ -263,13 +269,28 @@ label {
   border-color: var(--error);
 }
 
+@keyframes placeholder-glow {
+  0% {
+    background-color: var(--tertiary);
+  }
+  100% {
+    background-color: var(--quatrinary);
+  }
+}
+.placeholder-glow {
+  background-color: var(--tertiary);
+  height: 1.25rem;
+  animation: placeholder-glow 0.5s ease-in-out infinite;
+}
+
 [type='radio']:checked,
 [type='radio']:not(:checked) {
   position: absolute;
   left: -9999px;
 }
-[type='radio']:checked + label,
-[type='radio']:not(:checked) + label {
+
+[type='radio']:checked+label,
+[type='radio']:not(:checked)+label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
@@ -279,8 +300,8 @@ label {
   margin-right: 0.2rem;
 }
 
-[type='radio']:checked + label:before,
-[type='radio']:not(:checked) + label:before {
+[type='radio']:checked+label:before,
+[type='radio']:not(:checked)+label:before {
   content: '';
   position: absolute;
   left: 0;
@@ -291,8 +312,9 @@ label {
   border-radius: 100%;
   background: #fff;
 }
-[type='radio']:checked + label:after,
-[type='radio']:not(:checked) + label:after {
+
+[type='radio']:checked+label:after,
+[type='radio']:not(:checked)+label:after {
   content: '';
   width: 12px;
   height: 12px;
@@ -305,17 +327,18 @@ label {
   transition: all 0.2s ease;
 }
 
-[type='radio']:not(:checked) + label:after {
+[type='radio']:not(:checked)+label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-[type='radio']:checked + label:after {
+[type='radio']:checked+label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
+
 /* Modal */
 .modal {
   position: fixed;
@@ -399,6 +422,7 @@ label {
   color: var(--primary);
   text-decoration: underline;
 }
+
 .link-underline-tertiary:hover {
   color: var(--tertiary);
   text-decoration: underline;
@@ -448,6 +472,7 @@ label {
 .w-25 {
   width: 25%;
 }
+
 .w-125 {
   width: 12.5%;
 }
@@ -969,9 +994,11 @@ label {
 .text-small {
   font-size: var(--font-size-small);
 }
+
 .text-medium {
   font-size: var(--font-size-medium);
 }
+
 .text-standard {
   font-size: var(--font-size-standard);
 }
@@ -980,12 +1007,15 @@ label {
 .fw-light {
   font-weight: var(--font-weight-light);
 }
+
 .fw-medium {
   font-weight: var(--font-weight-medium);
 }
+
 .fw-heavy {
   font-weight: var(--font-weight-heavy);
 }
+
 /* BACKGROUND UTILS */
 .bg-primary {
   background-color: var(--primary);
@@ -1006,6 +1036,7 @@ label {
 .bg-dark {
   background-color: var(--dark);
 }
+
 .bg-dark-transparent {
   background-color: var(--dark-transparent);
 }
@@ -1119,8 +1150,10 @@ label {
 
 .overflow-scroll {
   overflow-y: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .overflow-scroll::-webkit-scrollbar {
@@ -1141,6 +1174,7 @@ label {
   stroke-width: 3px;
   stroke: var(--tertiary);
 }
+
 [class^='meter-'] {
   fill: none;
   stroke-width: 3px;
@@ -1160,6 +1194,7 @@ label {
   from {
     stroke-dashoffset: 360;
   }
+
   to {
     stroke-dashoffset: 100;
   }
@@ -1175,12 +1210,15 @@ label {
 .border-right {
   border-right: 1px solid var(--dark);
 }
+
 .border-bottom {
   border-bottom: 1px solid var(--dark);
 }
+
 .border-top {
   border-top: 1px solid var(--dark);
 }
+
 /* col-sm */
 @media screen and (min-width: 640px) {
   .col-sm-auto {
@@ -1536,4 +1574,3 @@ label {
     align-items: center;
   }
 }
-

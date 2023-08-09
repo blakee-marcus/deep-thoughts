@@ -10,57 +10,72 @@ import ReactionList from '../components/ReactionList';
 import ReactionForm from '../components/ReactionForm';
 
 const SingleThought = (props) => {
-  const { likeData } = useQuery(QUERY_MY_LIKES);
   const [likeThought] = useMutation(LIKE_THOUGHT);
   const [unlikeThought] = useMutation(UNLIKE_THOUGHT);
-  const [likedThoughts, setLikedThoughts] = useState([]);
+  const [liked, setLiked] = useState(false);
+  const [numberOfLikes, setNumberOfLikes] = useState(0);
   const { id: thoughtId } = useParams();
 
   const { loading, data } = useQuery(QUERY_THOUGHT, {
     variables: { id: thoughtId },
   });
-  console.log('likeData');
-  console.log(likeData);
-
 
   const thought = data?.thought || {};
 
+  // set liked state on load of thought data
   useEffect(() => {
-    if (likeData) {
-      console.log(likeData);
-      setLikedThoughts(likeData?.me?.likes.map((like) => like._id));
+    if (data) {
+      setLiked(thought?.likes?.some((like) => like._id === Auth.getProfile().data._id));
+      setNumberOfLikes(thought.likes.length);
     }
-  }, [likeData]);
+  }, [thought]);
 
-  const checkIfLiked = (thoughtId) => {
-    
-    return likedThoughts?.some((like) => like === thoughtId);
-  };
-
-  const handleLike = async (thoughtId) => {
+  const handleLike = async () => {
     try {
       likeThought({
         variables: { thoughtId },
       });
-      setLikedThoughts([...likedThoughts, thoughtId]);
+      setLiked(true);
+      setNumberOfLikes(numberOfLikes + 1);
     } catch (e) {
       console.error(e);
     }
   };
-  const handleUnlike = async (thoughtId) => {
+  const handleUnlike = async () => {
     try {
       unlikeThought({
         variables: { thoughtId },
       });
-      setLikedThoughts(likedThoughts.filter((id) => id !== thoughtId));
+      setLiked(false);
+      setNumberOfLikes(numberOfLikes - 1);
     } catch (e) {
       console.error(e);
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <div className='card mb-0 p-3 border-right'>
+          <p className='placeholder-glow w-25 mb-0'></p>
+          <p className='placeholder-glow w-125 mt-1'></p>
+          <p className='placeholder-glow w-50 mt-1 mb-3'></p>
+          <p className='placeholder-glow w-125 mt-1 mb-3'></p>
+          <div className='flex-row align-center'>
+            <div className='flex-row align-center w-25'>
+              <p className='placeholder-glow w-25 mr-1'></p>
+              <p className='placeholder-glow w-125'></p>
+            </div>
+            <div className='flex-row align-center w-25'>
+              <p className='placeholder-glow w-25 mr-1'></p>
+              <p className='placeholder-glow w-125'></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
+
   return (
     <div>
       <div className='card mb-0 p-3 border-right'>
@@ -87,8 +102,8 @@ const SingleThought = (props) => {
             <p className='mb-0 ml-3'>{thought.reactionCount}</p>
           </div>
           <div className='flex-row align-center ml-5'>
-            <button className='flex-row align-center btn-clear cursor-pointer' onClick={() => checkIfLiked(thought._id) ? handleUnlike(thought._id) : handleLike(thought._id)}>
-              {checkIfLiked(thought._id) ?
+            <button className='flex-row align-center btn-clear cursor-pointer' onClick={() => liked ? handleUnlike() : handleLike()}>
+              {liked ?
                 (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f91880" className="bi bi-heart-fill" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                 </svg>)
@@ -98,7 +113,7 @@ const SingleThought = (props) => {
                 </svg>)
               }
             </button>
-            <p className={`mb-0 ml-3 ${(checkIfLiked(thought._id) ? ('text-like') : ('text-tertiary'))}`}>{thought.likes.length}</p>
+            <p className={`mb-0 ml-3 ${(liked ? ('text-like') : ('text-tertiary'))}`}>{numberOfLikes}</p>
           </div>
         </div>
       </div>
