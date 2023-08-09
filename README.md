@@ -16,7 +16,7 @@
     <a href="https://github.com/blakee-marcus/deep-thoughts"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://peaceful-depths-18416.herokuapp.com/">View Demo</a>
+    <a href="https://bm-deepthoughts-1492b9add94c.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/blakee-marcus/deep-thoughts/issues">Report Bug</a>
     ·
