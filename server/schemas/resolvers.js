@@ -41,6 +41,24 @@ const resolvers = {
         path: 'thoughts',
         options: { sort: { createdAt: -1 } }
       }),
+    thoughtsFromFollowing: async (parent, args, context) => {
+      if (context.user) { 
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+          .populate({
+            path: 'following',
+            populate: { 
+              path: 'thoughts',
+              options: { sort: { createdAt: -1 } },
+              populate: 'author'
+            },
+
+          });
+
+        return userData
+      }
+      throw new AuthenticationError('Not Logged In');
+    },
     user: async (parent, { username }) => User.findOne({ username })
       .select('-__v -password')
       .populate('following')

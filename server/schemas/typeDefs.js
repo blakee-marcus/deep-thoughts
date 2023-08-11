@@ -8,6 +8,7 @@ const typeDefs = gql`
     author: User
     reactionCount: Int
     reactions: [Reaction]
+    likeCount: Int
     likes: [User]
   }
 
@@ -42,6 +43,7 @@ const typeDefs = gql`
     user(username: String): User
     thoughts(username: String): [Thought]
     thought(_id: ID!): Thought
+    thoughtsFromFollowing: User
   }
   type Mutation {
     login(email: String!, password: String!): Auth
