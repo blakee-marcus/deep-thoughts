@@ -48,7 +48,7 @@ export default function SingleThought({ thought, checkIfLiked, handleLike, handl
                 </svg>)
               }
             </button>
-            <p className={`mb-0 ml-3 ${(checkIfLiked(thought._id) ? ('text-like') : ('text-tertiary'))}`}>{thought.likes.length}</p>
+            <p className={`mb-0 ml-3 ${(checkIfLiked(thought._id) ? ('text-like') : ('text-tertiary'))}`}>{thought.likeCount}</p>
           </div>
         </div>
       </div>

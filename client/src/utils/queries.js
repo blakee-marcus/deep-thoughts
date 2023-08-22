@@ -64,6 +64,26 @@ export const QUERY_THOUGHT = gql`
   }
 `;
 
+export const QUERY_FOLLOWING_THOUGHTS = gql`
+query {
+  thoughtsFromFollowing {
+    following {
+      thoughts {
+        _id
+        author {
+          name
+          username
+        }
+        createdAt
+        likeCount
+        reactionCount
+        thoughtText
+      }
+    }
+  }
+}
+`;
+
 export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {

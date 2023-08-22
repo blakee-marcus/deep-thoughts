@@ -52,9 +52,7 @@ const resolvers = {
               options: { sort: { createdAt: -1 } },
               populate: 'author'
             },
-
           });
-
         return userData
       }
       throw new AuthenticationError('Not Logged In');

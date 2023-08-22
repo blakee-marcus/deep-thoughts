@@ -7,7 +7,7 @@ import SingleThought from '../SingleThought';
 import { QUERY_MY_LIKES } from '../../utils/queries';
 import { LIKE_THOUGHT, UNLIKE_THOUGHT } from '../../utils/mutations';
 
-const ThoughtList = ({ thoughts, username, displayLikeList }) => {
+const ThoughtList = ({ thoughts, username, displayLikeList, displayFollowing }) => {
   const { data } = useQuery(QUERY_MY_LIKES);
   const [likeThought] = useMutation(LIKE_THOUGHT);
   const [unlikeThought] = useMutation(UNLIKE_THOUGHT);
@@ -51,6 +51,15 @@ const ThoughtList = ({ thoughts, username, displayLikeList }) => {
       </section>
     );
   }
+
+  if (!thoughts.length && displayFollowing) {
+    return (
+      <section className='flex-column align-center justify-center'>
+        <h3 className='text-light fw-heavy'>Welcome to Deep Thoughts!</h3>{' '}
+        <p className='text-tertiary'>This is the best place to see what’s happening in your world. Find some people to follow now.</p>
+      </section>
+    );
+  };
 
   if (!thoughts.length) {
     return (
@@ -115,7 +124,7 @@ const ThoughtList = ({ thoughts, username, displayLikeList }) => {
           //     </div>
           //   </div>
           // </div>
-          <SingleThought thought={thought} checkIfLiked={checkIfLiked} handleLike={handleLike} handleUnlike={handleUnlike} />
+          <SingleThought key={thought._id} thought={thought} checkIfLiked={checkIfLiked} handleLike={handleLike} handleUnlike={handleUnlike} />
         ))}
     </div>
   );

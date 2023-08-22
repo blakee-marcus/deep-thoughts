@@ -428,6 +428,14 @@ label {
   text-decoration: underline;
 }
 
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 /* LAYOUT */
 .container {
   width: 100%;
@@ -1044,6 +1052,10 @@ label {
 .nav-underline {
   border-bottom: 4px solid var(--primary);
   border-radius: 4px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 /* FLEX CONTENT */
