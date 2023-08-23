@@ -22,7 +22,6 @@ const Home = () => {
     if (dataFollowing) {
       const fetchedThoughts = dataFollowing?.thoughtsFromFollowing?.following.flatMap(user => user.thoughts);
       const sortedThoughts = fetchedThoughts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      console.log(sortedThoughts);
       setFollowingThoughts(sortedThoughts);
     }
 

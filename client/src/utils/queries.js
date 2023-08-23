@@ -22,6 +22,7 @@ export const QUERY_THOUGHTS = gql`
           username
         }
       }
+      likeCount
       likes {
         _id
         name
@@ -54,6 +55,7 @@ export const QUERY_THOUGHT = gql`
           username
         }
       }
+      likeCount
       likes {
         _id
         name
@@ -117,6 +119,7 @@ export const QUERY_USER = gql`
         }
         createdAt
         reactionCount
+        likeCount
         thoughtText
         likes {
         _id
@@ -134,6 +137,7 @@ export const QUERY_USER = gql`
           _id
         }
         reactionCount
+        likeCount
         thoughtText
       }
     }
@@ -168,6 +172,7 @@ export const QUERY_ME = gql`
         _id
         createdAt
         reactionCount
+        likeCount
         thoughtText
         reactions {
           _id

@@ -73,7 +73,12 @@ const userSchema = new Schema(
         ref: 'Thought',
       },
     ],
-
+    notifications: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Notification',
+      }
+    ]
   },
   {
     toJSON: {

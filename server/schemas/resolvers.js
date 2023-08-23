@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought } = require('../models');
+const { User, Thought, Notification } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -14,6 +14,7 @@ const resolvers = {
           })
           .populate('following')
           .populate('followers')
+          .populate({ path: 'notifications', populate: 'fromUser' })
           .populate('likes');
 
         return userData;
@@ -122,6 +123,18 @@ const resolvers = {
           { new: true, runValidators: true },
         );
 
+        const createdNotification = await Notification.create({
+          notificationType: 'reply',
+          fromUser: context.user._id,
+          forUser: updatedThought.author,
+          relatedThought: thoughtId,
+        });
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: updatedThought.author },
+          { $push: { notifications: createdNotification._id } },
+          { new: true },
+        );
+
         return updatedThought;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -133,12 +146,19 @@ const resolvers = {
           { $addToSet: { following: userId } },
           { new: true },
         ).populate('following');
+        
+        const createdNotification = await Notification.create({
+          notificationType: 'follow',
+          fromUser: context.user._id,
+          forUser: userId,
+        });
 
         const updatedFollowedUser = await User.findOneAndUpdate(
           { _id: userId },
-          { $addToSet: { followers: context.user._id } },
+          { $addToSet: { followers: context.user._id }, $push: { notifications: createdNotification._id } },
           { new: true },
         ).populate('followers');
+        console.log(updatedFollowedUser);
         return updatedUser && updatedFollowedUser;
       }
 

@@ -1,6 +1,14 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  type Notification {
+    _id: ID!
+    notificationType: String!
+    notificationDate: String
+    fromUser: User
+    forUser: User
+    relatedThought: Thought
+  }
   type Thought {
     _id: ID
     thoughtText: String
@@ -32,6 +40,7 @@ const typeDefs = gql`
     following: [User]
     followers: [User]
     likes: [Thought]
+    notifications: [Notification]
   }
   type Auth {
     token: ID!
@@ -44,6 +53,7 @@ const typeDefs = gql`
     thoughts(username: String): [Thought]
     thought(_id: ID!): Thought
     thoughtsFromFollowing: User
+    notifications: [Notification]
   }
   type Mutation {
     login(email: String!, password: String!): Auth
