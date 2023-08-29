@@ -219,3 +219,22 @@ export const QUERY_MY_LIKES = gql`
   }
 }`;
 
+export const QUERY_MY_NOTIFICATIONS = gql`
+query Notifications {
+  me {
+    notifications {
+      _id
+      notificationType
+      notificationDate
+      reactionText
+      fromUser {
+        username
+        name
+      }
+      relatedThought {
+        _id
+        thoughtText
+      }
+    }
+  }
+}`;

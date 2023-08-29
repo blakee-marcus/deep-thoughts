@@ -14,7 +14,14 @@ const resolvers = {
           })
           .populate('following')
           .populate('followers')
-          .populate({ path: 'notifications', populate: 'fromUser' })
+          .populate({
+            path: 'notifications',
+            populate: [
+              { path: 'fromUser' },
+              { path: 'relatedThought' }
+            ],
+            options: { sort: { notificationDate: -1 } }
+          })
           .populate('likes');
 
         return userData;
@@ -43,12 +50,12 @@ const resolvers = {
         options: { sort: { createdAt: -1 } }
       }),
     thoughtsFromFollowing: async (parent, args, context) => {
-      if (context.user) { 
+      if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
           .populate({
             path: 'following',
-            populate: { 
+            populate: {
               path: 'thoughts',
               options: { sort: { createdAt: -1 } },
               populate: 'author'
@@ -127,6 +134,7 @@ const resolvers = {
           notificationType: 'reply',
           fromUser: context.user._id,
           forUser: updatedThought.author,
+          reactionText: reactionBody,
           relatedThought: thoughtId,
         });
         const updatedUser = await User.findOneAndUpdate(
@@ -146,7 +154,7 @@ const resolvers = {
           { $addToSet: { following: userId } },
           { new: true },
         ).populate('following');
-        
+
         const createdNotification = await Notification.create({
           notificationType: 'follow',
           fromUser: context.user._id,
@@ -195,6 +203,18 @@ const resolvers = {
           { $addToSet: { likes: context.user._id } },
           { new: true },
         ).populate('likes');
+
+        const createdNotification = await Notification.create({
+          notificationType: 'like',
+          fromUser: context.user._id,
+          forUser: updatedThought.author,
+          relatedThought: thoughtId,
+        });
+        const notifyUser = await User.findOneAndUpdate(
+          { _id: updatedThought.author },
+          { $push: { notifications: createdNotification._id } },
+        );
+
         return updatedUser && updatedThought;
       }
 

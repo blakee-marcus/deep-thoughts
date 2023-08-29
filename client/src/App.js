@@ -17,6 +17,7 @@ import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Follow from './pages/Follow';
 import Signup from './pages/Signup';
+import Notifications from './pages/Notifications';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -56,6 +57,7 @@ function App() {
                   <Route path=':username/followers' element={<Follow navMode='followers'/>} />
                 </Route>
                 <Route path='/thought/:id' element={<SingleThought />} />
+                <Route path='/notifications' element={<Notifications />} />
 
                 <Route path='*' element={<NoMatch />} />
               </Routes>

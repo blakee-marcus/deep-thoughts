@@ -13,6 +13,9 @@ const notificationSchema = new Schema(
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
+    reactionText: {
+      type: String
+    },
     fromUser: {
       type: Schema.Types.ObjectId,
       ref: 'User',

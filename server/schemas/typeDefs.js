@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID!
     notificationType: String!
     notificationDate: String
+    reactionText: String
     fromUser: User
     forUser: User
     relatedThought: Thought
