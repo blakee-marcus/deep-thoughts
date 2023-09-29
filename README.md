@@ -1,15 +1,17 @@
+<div align="center">
+
+# Deep Thoughts
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
+</div>
 
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
-<h3 align="center">Deep Thoughts</h3>
 
   <p align="center">
       <br />
@@ -94,6 +96,16 @@ Install newest version of NPM
 2. Install NPM packages
    ```sh
    npm install
+   ```
+### Running Local Development
+1. Run both Back-End and Front-End
+    ```sh
+    npm run develop
+    ```
+2. Run Only Back-End
+   ```sh
+   npm run start
+   ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
