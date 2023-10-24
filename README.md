@@ -17,7 +17,6 @@ A dynamic social media platform crafted for users to share, discuss, and reflect
 
 - **Interactive User Profiles**: Users can create accounts, share their thoughts, and engage in threaded discussions.
 - **Community Interaction**: Users can comment on, like, and reply to thoughts, fostering a community-driven platform.
-- **Responsive Design**: Adapts to various device sizes for an optimal browsing experience.
 
 ## Installation
 
