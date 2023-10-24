@@ -22,6 +22,8 @@ const SingleNotification = ({ notification, notificationType }) => {
     return (
       <div className="card mb-0 mt-2" key={notification._id}>
         <div className='mb-1 flex-row align-center'>
+          <Link to={`/thought/${notification.relatedThought._id}`}>
+          
           <div className="">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#f91880" className="bi bi-heart-fill ml-3" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
@@ -33,6 +35,7 @@ const SingleNotification = ({ notification, notificationType }) => {
               {notification.relatedThought.thoughtText && notification.relatedThought.thoughtText.length > 50 ? notification.relatedThought.thoughtText.substring(0, 50) + '...' : notification.relatedThought.thoughtText}
             </p>
           </div>
+        </Link>
         </div>
       </div>
     );
