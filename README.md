@@ -1,58 +1,95 @@
-# Deep Thoughts 💭
+# 🧠 Deep Thoughts
 
-A dynamic social media platform crafted for users to share, discuss, and reflect on their thoughts. Utilizing the power of the MERN stack (MongoDB, Express.js, React, Node.js) and GraphQL, the platform provides a responsive and interactive experience for users.
+A clean, community-powered platform to share and respond to personal thoughts. Built with the MERN stack + GraphQL for a fast, expressive experience.
 
-![Deep Thoughts Screenshot](./ReadMe-Assets/screenshot.PNG)
+![Screenshot](./ReadMe-Assets/screenshot.PNG)
 
-## Table of Contents
+---
 
-1. [Features](#features)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Support](#support)
-5. [Contributing](#contributing)
-6. [Copyright](#copyright)
+## 📋 Table of Contents
 
-## Features
+1. [✨ Features](#features)
+2. [🚀 Installation](#installation)
+3. [🧪 Usage](#usage)
+4. [🛠️ Support](#support)
+5. [📄 License](#license)
 
-- **Interactive User Profiles**: Users can create accounts, share their thoughts, and engage in threaded discussions.
-- **Community Interaction**: Users can comment on, like, and reply to thoughts, fostering a community-driven platform.
+---
 
-## Installation
+## ✨ Features
+
+- **User Profiles**  
+  Create a profile, share thoughts, and start discussions.
+
+- **Threaded Comments**  
+  Spark conversations with replies and reactions.
+
+- **GraphQL Backend**  
+  Fast data-fetching and intuitive dev experience.
+
+- **Responsive Design**  
+  Works seamlessly across devices.
+
+---
+
+## 🚀 Installation
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/)
-- [MongoDB](https://www.mongodb.com/try/download/community)
+- [MongoDB Community Edition](https://www.mongodb.com/try/download/community)
 
-### Steps
+### Setup Steps
 
-1. Clone the repository:
-
+#### 1. Clone the repository
 ```bash
 git clone https://github.com/blakee-marcus/deep-thoughts.git
 ```
-2. Navigate to the project directory:
+
+#### 2. Move into the project folder
 ```bash
 cd deep-thoughts
 ```
-3. Install the required dependencies for both the server and client:
+#### 3. Install all dependencies (client + server)
 ```bash
 npm install
 ```
-
-## Usage
-1. To run the application in development mode (client and server will be executed concurrently):
+#### 4. Start the development environment
 ```bash
 npm run develop
-```  
-  Client will be accessible at: `http://localhost:3000`  
-  Server will be operational at: `http://localhost:3001`
+```
+#### 5. For a production build
+```bash
+npm run build
+```
+#### 6. Preview the build
+```bash
+npm run preview
+```
+---
+## 🧪 Usage
 
-## Support
-For inquiries or issues, please reach out to:
+### Once running:
 
-Blake: [marcusb733@gmail.com](mailto:marcusb733@gmail.com)
+  * Visit http://localhost:3000 in your browser.
 
-## Copyright
-All rights reserved. Unauthorized duplication, distribution, or display of this software and related documentation without express written permission from the author is prohibited.
+  * Create a profile or log in.
+
+  * Post a thought, leave comments, and connect with others.
+
+  * Explore community discussions and user profiles.
+
+---
+## 🛠️ Support
+
+Need help or want to get in touch?
+
+📬 me@blakemarcus.com
+
+---
+## 📄 License
+
+© 2025 Blake Marcus. All rights reserved.
+Unauthorized duplication or distribution is prohibited without written permission.
+
+---

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="bg-muted text-gray-900 dark:bg-dark dark:text-white transition-colors duration-300">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Post and explore thoughts from users across the platform. Follow, like, and engage with ideas that inspire you." />
+
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Inconsolata:wght@300;400;800&display=swap"
+      rel="stylesheet" />
+
+    <!-- Preload primary font for faster LCP -->
+    <link
+      rel="preload"
+      as="font"
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap"
+      type="font/woff2"
+      crossorigin="anonymous" />
+
+    <title>Deep Thoughts</title>
+  </head>
+
+  <body
+    class="min-h-screen font-sans antialiased leading-relaxed bg-muted text-gray-900 dark:bg-dark dark:text-white transition-colors duration-300">
+    <noscript>
+      <div class="p-4 text-center text-red-600 bg-red-100 rounded-md max-w-xl mx-auto mt-6">
+        JavaScript is required to run this application.
+      </div>
+    </noscript>
+
+    <div id="root" class="min-h-screen flex flex-col"></div>
+
+    <!-- Entry -->
+    <script type="module" src="/main.jsx"></script>
+  </body>
+</html>
